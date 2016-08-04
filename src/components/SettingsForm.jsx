@@ -130,9 +130,9 @@ const SettingsForm = ({
         <legend className={legendIntervalsClassName}>
           Intervals to Practice&nbsp;
           <span className="interval-control">
-            (<a href="#" onClick={onClickAllIntervals}>All</a>
+            (<button onClick={onClickAllIntervals}>All</button>
             &nbsp;/&nbsp;
-            <a onClick={onClickRandomizeIntervals} href="#">Randomize</a>)
+            <button onClick={onClickRandomizeIntervals}>Randomize</button>)
           </span>
         </legend>
 

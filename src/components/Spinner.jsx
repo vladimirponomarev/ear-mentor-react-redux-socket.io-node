@@ -6,7 +6,7 @@ const Spinner = ({ isVisible }) => {
   };
 
   return (
-    <div style={style} className="spinner"></div>
+    <div style={style} className="spinner">Spinner</div>
   );
 };
 

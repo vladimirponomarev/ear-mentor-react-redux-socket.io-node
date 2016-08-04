@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import expect from 'expect';
 import countries from '../json/countries.json';
 import { getCountryList, getCountryByCode, getCountryByName } from './country';

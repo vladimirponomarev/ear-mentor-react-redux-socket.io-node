@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Spinner from '../components/Spinner';
+import Spinner from '../components/Spinner.jsx';
 import * as environmentActions from '../actions/environmentActions';
 
 
@@ -17,7 +17,7 @@ class App extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.isInRequest !== nextProps.environment.requestInProgressCount > 0) {
+    if (this.state.isInRequest !== (nextProps.environment.requestInProgressCount > 0)) {
       this.setState({
         isInRequest: nextProps.environment.requestInProgressCount > 0
       });

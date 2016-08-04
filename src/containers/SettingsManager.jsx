@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import SettingsForm from '../components/SettingsForm';
+import SettingsForm from '../components/SettingsForm.jsx';
 import calculateScorePoints from '../utils/calculateScorePoints';
-import { getCountryByCode, getCountryByName } from '../utils/country';
+import { getCountryByName } from '../utils/country';
 import * as settingsActions from '../actions/settingsActions';
 import * as environmentActions from '../actions/environmentActions';
 import * as musicalIntervals from '../constants/musicalIntervals';

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import expect from 'expect';
 import calculateScorePoints from './calculateScorePoints';
 import * as musicalIntervals from '../constants/musicalIntervals';

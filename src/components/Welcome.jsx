@@ -1,5 +1,5 @@
 import React from 'react';
-import SettingsManager from '../containers/SettingsManager';
+import SettingsManager from '../containers/SettingsManager.jsx';
 
 
 const Welcome = () => {

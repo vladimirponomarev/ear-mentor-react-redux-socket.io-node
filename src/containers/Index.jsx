@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
-import Welcome from '../components/Welcome';
+import React from 'react';
+import Welcome from '../components/Welcome.jsx';
 
 
 class Index extends React.Component {

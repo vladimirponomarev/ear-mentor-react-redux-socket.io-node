@@ -1,0 +1,23 @@
+{
+  "extends": "airbnb",
+  "plugins": [
+    "react"
+  ],
+  "env": {
+    "mocha": true
+  },
+  "ecmaFeatures": {
+    "spread": true
+  },
+  "rules": {
+    "quotes": 0,
+    "no-console": 1,
+    "no-debugger": 1,
+    "no-underscore-dangle": 0,
+    "no-var": 1,
+    "eol-last": 0,
+    "semi": [1, "always"],
+    "comma-dangle": [0, "never"],
+    "arrow-body-style": 0
+  }
+}

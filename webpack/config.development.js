@@ -11,7 +11,7 @@ export default {
   },
   entry: [
     'webpack-hot-middleware/client?reload=true',
-    './src/client'
+    './src/client.jsx'
   ],
   output: {
     path: path.join(__dirname, '../dist-dev'),
@@ -25,7 +25,7 @@ export default {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         include: path.join(__dirname, '../src'),
         loader: 'babel'
       },

@@ -1,10 +1,15 @@
 import webpack from 'webpack';
 import path from 'path';
+import fs from 'fs';
+import config from '../config';
 
-const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify('production')
-};
-
+// the server-side config from: http://jlongster.com/Backend-Apps-with-Webpack--Part-I
+var nodeModules = {};
+fs.readdirSync('node_modules').filter(function(x) {
+  return ['.bin'].indexOf(x) === -1;
+}).forEach(function(mod) {
+  nodeModules[mod] = 'commonjs ' + mod;
+});
 
 export const server = {
   debug: false,
@@ -12,43 +17,58 @@ export const server = {
   node: {
     __dirname: false
   },
-  entry: './tools/prod-server.js',
+  entry: './src/server.production.js',
   output: {
-    path: path.join(__dirname, '../dist'),
+    path: config.paths.distDirectory,
     filename: 'server.js'
   },
   module: {
     loaders: [
       {
         test: /\.js$/,
-        include: path.join(__dirname, '../tools/prod-server.js'),
-        loader: 'babel'
+        loader: 'babel',
+        include: [
+          path.join(__dirname, '../src'),
+          path.join(__dirname, '../config')
+        ],
+        query: {
+          presets: ["es2015", "es2016", "react"]
+        }
       },
       {
         test: /\.json$/,
         loader: 'json'
       }
     ]
-  }
+  },
+  externals: nodeModules,
+  plugins: [
+    new webpack.IgnorePlugin(/\.(css|less)$/),
+    new webpack.BannerPlugin('require("source-map-support").install();',
+                             { raw: true, entryOnly: false })
+  ],
+  devtool: 'sourcemap'
 };
 
 export const client = {
   debug: false,
-  entry: './src/client.js',
+  entry: './src/client.jsx',
   output: {
-    path: path.join(__dirname, '../dist/base'),
+    path: config.paths.staticDirectoryDest,
     filename: 'client.js'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(true),
-    new webpack.DefinePlugin(GLOBALS),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': '"production"'
+    }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin()
   ],
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         include: path.join(__dirname, '../src'),
         loader: 'babel'
       },

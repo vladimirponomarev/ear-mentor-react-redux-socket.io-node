@@ -2,7 +2,6 @@ import * as environmentActions from '../actions/environmentActions';
 
 
 export default function (dependencies) {
-
   if (!dependencies.socket) {
     throw new Error('The socket connection must be provided.');
   }
@@ -18,5 +17,4 @@ export default function (dependencies) {
   socket.on('connect', () => {
     return store.dispatch(environmentActions.completeConnectionToServer());
   });
-
 }
