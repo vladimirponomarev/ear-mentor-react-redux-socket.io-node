@@ -33,7 +33,7 @@ describe('Testing utils/validator', () => {
     expect(result.errors.name).toBe(undefined);
   });
 
-  it('should pass validation because one interval selected, but in asc and desc', () => {
+  it('should pass the validation because one interval selected, but in asc and desc', () => {
     const result = isSettingsDataValid({
       directions: [musicalIntervals.DIRECTION_ASC, musicalIntervals.DIRECTION_DESC],
       intervals: [musicalIntervals.MAJOR_SECOND],
@@ -49,7 +49,7 @@ describe('Testing utils/validator', () => {
     expect(result.errors.name).toBe(undefined);
   });
 
-  it('should not pass validation because none directions selected', () => {
+  it('should not pass the validation because none directions selected', () => {
     const result = isSettingsDataValid({
       directions: [],
       intervals: [musicalIntervals.MAJOR_SECOND],
@@ -65,7 +65,7 @@ describe('Testing utils/validator', () => {
     expect(result.errors.name).toBe(undefined);
   });
 
-  it('should not pass validation because passed an incorrect instrument', () => {
+  it('should not pass the validation because passed an incorrect instrument', () => {
     const result = isSettingsDataValid({
       directions: [musicalIntervals.DIRECTION_ASC],
       intervals: [musicalIntervals.MAJOR_SECOND, musicalIntervals.PERFECT_FOURTH],
@@ -81,7 +81,7 @@ describe('Testing utils/validator', () => {
     expect(result.errors.name).toBe(undefined);
   });
 
-  it('should not pass validation because passed an incorrect country code', () => {
+  it('should not pass the validation because passed an incorrect country code', () => {
     const result = isSettingsDataValid({
       directions: [musicalIntervals.DIRECTION_ASC],
       intervals: [musicalIntervals.MAJOR_SECOND, musicalIntervals.PERFECT_FOURTH],
@@ -97,7 +97,7 @@ describe('Testing utils/validator', () => {
     expect(result.errors.name).toBe(undefined);
   });
 
-  it('should not pass validation because passed an empty name', () => {
+  it('should not pass the validation because passed an empty name', () => {
     const result = isSettingsDataValid({
       directions: [musicalIntervals.DIRECTION_ASC],
       intervals: [musicalIntervals.MAJOR_SECOND, musicalIntervals.PERFECT_FOURTH],
