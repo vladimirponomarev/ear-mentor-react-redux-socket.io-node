@@ -57,7 +57,7 @@ class App extends React.Component {
 
             <div className="footer__nav">
               <ul>
-                <li><a href="https://github.com/v">Source code</a></li>
+                <li><a href="https://github.com/vladimirponomarev/ear-mentor-react-redux-socket.io-node">Source code</a></li>
               </ul>
             </div>
           </div>
