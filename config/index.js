@@ -12,6 +12,15 @@ const config = {
       staticDirectoryDest: path.join(__dirname, '../dist/static')
     }
   },
+  test: {
+    db: path.join(__dirname, '../db/db.test.sqlite3'),
+    port: 3001,
+    paths: {
+      distDirectory,
+      staticDirectorySrc: path.join(__dirname, '../src/static'),
+      staticDirectoryDest: path.join(__dirname, '../dist/static')
+    }
+  },
   production: {
     db: path.join(__dirname, '../db/db.sqlite3'),
     port: 8081,
