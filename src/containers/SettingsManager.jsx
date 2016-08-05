@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SettingsForm from '../components/SettingsForm.jsx';
 import calculateScorePoints from '../utils/calculateScorePoints';
 import { getCountryByName } from '../utils/country';
+import { isSettingsDataValid } from '../utils/validator';
 import * as settingsActions from '../actions/settingsActions';
 import * as environmentActions from '../actions/environmentActions';
 import * as musicalIntervals from '../constants/musicalIntervals';
@@ -100,72 +101,10 @@ class SettingsContainer extends React.Component {
     return this.props.settingsActions.randomizeIntervals();
   }
 
-  isFormValid() {
-    let isValid = true;
-    let directionCount = 0;
-    let intervalCount = 0;
-
-    const errors = {};
-    const settings = this.state.settings;
-    const isInstrumentValid = Object.keys(musicalInstruments)
-      .some(key => musicalInstruments[key] === settings.instrument);
-
-
-    directionCount += settings.directions.includes(musicalIntervals.DIRECTION_ASC) ? 1 : 0;
-    directionCount += settings.directions.includes(musicalIntervals.DIRECTION_DESC) ? 1 : 0;
-    intervalCount += settings.intervals.includes(musicalIntervals.MINOR_SECOND) ? 1 : 0;
-    intervalCount += settings.intervals.includes(musicalIntervals.MAJOR_SECOND) ? 1 : 0;
-    intervalCount += settings.intervals.includes(musicalIntervals.MINOR_THIRD) ? 1 : 0;
-    intervalCount += settings.intervals.includes(musicalIntervals.MAJOR_THIRD) ? 1 : 0;
-    intervalCount += settings.intervals.includes(musicalIntervals.PERFECT_FOURTH) ? 1 : 0;
-    intervalCount += settings.intervals.includes(musicalIntervals.TRITONE) ? 1 : 0;
-    intervalCount += settings.intervals.includes(musicalIntervals.PERFECT_FIFTH) ? 1 : 0;
-    intervalCount += settings.intervals.includes(musicalIntervals.MINOR_SIXTH) ? 1 : 0;
-    intervalCount += settings.intervals.includes(musicalIntervals.MAJOR_SIXTH) ? 1 : 0;
-    intervalCount += settings.intervals.includes(musicalIntervals.MINOR_SEVENTH) ? 1 : 0;
-    intervalCount += settings.intervals.includes(musicalIntervals.MAJOR_SEVENTH) ? 1 : 0;
-    intervalCount += settings.intervals.includes(musicalIntervals.PERFECT_OCTAVE) ? 1 : 0;
-
-
-    if (!isInstrumentValid) {
-      errors.instrument = 'Please choose an available instrument.';
-      isValid = false;
-    }
-
-    if (directionCount === 0) {
-      errors.directions = 'Please choose at least one interval direction.';
-      isValid = false;
-    }
-
-    if (intervalCount === 1 && directionCount === 1) {
-      errors.intervals = 'Please choose at least two intervals ' +
-        'or consider to add another direction.';
-      isValid = false;
-    } else if (intervalCount === 0) {
-      errors.intervals = 'Please choose at least two intervals.';
-      isValid = false;
-    }
-
-    if (settings.name.trim().length === 0) {
-      errors.name = 'Please provide your name.';
-      isValid = false;
-    }
-
-    if (settings.country.trim().length === 0) {
-      errors.country = 'Please provide your country.';
-      isValid = false;
-    }
-
-    return {
-      isValid,
-      errors
-    };
-  }
-
   startGame(event) {
     event.preventDefault();
 
-    const validationResult = this.isFormValid();
+    const validationResult = isSettingsDataValid(this.state.settings);
     if (!validationResult.isValid) {
       return this.setState({
         errors: validationResult.errors
