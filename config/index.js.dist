@@ -5,6 +5,7 @@ const distDirectory = path.join(__dirname, '../dist');
 const config = {
   development: {
     db: path.join(__dirname, '../db/db.development.sqlite3'),
+    secretKey: 'a-secret-key',
     port: 3000,
     paths: {
       distDirectory,
@@ -14,6 +15,7 @@ const config = {
   },
   test: {
     db: path.join(__dirname, '../db/db.test.sqlite3'),
+    secretKey: 'a-secret-key',
     port: 3001,
     paths: {
       distDirectory,
@@ -23,6 +25,7 @@ const config = {
   },
   production: {
     db: path.join(__dirname, '../db/db.sqlite3'),
+    secretKey: 'a-secret-key', // replace with you own
     port: 8081,
     paths: {
       distDirectory,

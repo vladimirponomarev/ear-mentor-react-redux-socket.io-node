@@ -3,7 +3,7 @@ import bindSocketClientListeners from '../socket/bindSocketClientListeners';
 import * as actionTypes from '../constants/actionTypes';
 
 
-let socket;
+let socketConnection;
 
 function isSocketEmitter(actionType) {
   const chunks = actionType.split('|');
@@ -20,16 +20,16 @@ function getSocketEmitterName(actionType) {
 export default function socketMiddleware(store) {
   return next => action => {
     if (action.type === actionTypes.CONNECT_TO_SERVER) {
-      socket = socketIoClient();
+      socketConnection = socketIoClient();
 
       bindSocketClientListeners({
-        socket,
+        io: socketConnection,
         store
       });
-    } else if (socket && isSocketEmitter(action.type)) {
+    } else if (socketConnection && isSocketEmitter(action.type)) {
       const eventName = getSocketEmitterName(action.type);
 
-      socket.emit(eventName, action.payload);
+      socketConnection.emit(eventName, action.payload);
     }
 
 

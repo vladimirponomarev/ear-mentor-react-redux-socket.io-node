@@ -14,9 +14,9 @@ export function changeName(name) {
   };
 }
 
-export function selectInstrument(instrument) {
+export function setInstrument(instrument) {
   return {
-    type: actionTypes.SELECT_INSTRUMENT,
+    type: actionTypes.SET_INSTRUMENT,
     instrument
   };
 }

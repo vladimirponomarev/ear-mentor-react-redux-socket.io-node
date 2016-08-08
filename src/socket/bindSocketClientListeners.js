@@ -1,8 +1,9 @@
 import * as environmentActions from '../actions/environmentActions';
+import * as gameActions from '../actions/gameActions';
 
 
 export default function (dependencies) {
-  if (!dependencies.socket) {
+  if (!dependencies.io) {
     throw new Error('The socket connection must be provided.');
   }
 
@@ -10,11 +11,17 @@ export default function (dependencies) {
     throw new Error('The Redux store must be provided.');
   }
 
-  const socket = dependencies.socket;
+  const io = dependencies.io;
   const store = dependencies.store;
 
 
-  socket.on('connect', () => {
+  io.on('connect', () => {
     return store.dispatch(environmentActions.completeConnectionToServer());
+  });
+
+  io.on('confirm_game_start', (gameData) => {
+    store.dispatch(gameActions.setPlayerId(gameData.playerId));
+
+    return store.dispatch(environmentActions.loadAssets(gameData.resources));
   });
 }

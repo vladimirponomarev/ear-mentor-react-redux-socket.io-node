@@ -1,4 +1,4 @@
-import * as musicalIntervals from '../constants/musicalIntervals';
+import * as musicalIntervalDirections from '../constants/musicalIntervalDirections';
 import * as musicalNotes from '../constants/musicalNotes';
 
 
@@ -19,17 +19,18 @@ function generateFirstNoteIndex() {
     min: musicalNotes.RANGE[instrument].min,
     max: musicalNotes.RANGE[instrument].max
   };
-  const hasAscDirection = directions.includes(musicalIntervals.DIRECTION_ASC);
-  const hasDescDirection = directions.includes(musicalIntervals.DIRECTION_DESC);
+  const hasAscDirection = directions.includes(musicalIntervalDirections.ASC);
+  const hasDescDirection = directions.includes(musicalIntervalDirections.DESC);
 
 
   if (hasAscDirection && !hasDescDirection) {
     range.min = musicalNotes.RANGE[instrument].min;
     range.max = musicalNotes.RANGE[instrument].max - getMinPossibleInterval();
   } else if (!hasAscDirection && hasDescDirection) {
-    range.min = getMinPossibleInterval();
+    range.min = musicalNotes.RANGE[instrument].min + getMinPossibleInterval();
     range.max = musicalNotes.NOTES.length;
   }
+
 
   return getRandomInt(range.min, range.max);
 }
@@ -41,7 +42,7 @@ function generateSecondNoteIndex(firstNoteIndex) {
     max: 0
   };
 
-  if (directions.includes(musicalIntervals.DIRECTION_ASC)) {
+  if (directions.includes(musicalIntervalDirections.ASC)) {
     intervals.forEach((interval) => {
       if (firstNoteIndex + interval <= musicalNotes.RANGE[instrument].max) {
         possibleIntervals.push(firstNoteIndex + interval);
@@ -49,7 +50,7 @@ function generateSecondNoteIndex(firstNoteIndex) {
     });
   }
 
-  if (directions.includes(musicalIntervals.DIRECTION_DESC)) {
+  if (directions.includes(musicalIntervalDirections.DESC)) {
     intervals.forEach((interval) => {
       if (firstNoteIndex - interval >= musicalNotes.RANGE[instrument].min) {
         possibleIntervals.push(firstNoteIndex - interval);
@@ -71,6 +72,7 @@ export default function (settings) {
 
   const firstNoteIndex = generateFirstNoteIndex();
   const secondNoteIndex = generateSecondNoteIndex(firstNoteIndex);
+
 
   return [firstNoteIndex, secondNoteIndex];
 }

@@ -1,5 +1,6 @@
 import * as actionTypes from '../constants/actionTypes';
 import * as musicalIntervals from '../constants/musicalIntervals';
+import * as musicalIntervalDirections from '../constants/musicalIntervalDirections';
 import * as musicalInstruments from '../constants/musicalInstruments';
 
 
@@ -10,12 +11,11 @@ const initialState = {
     musicalIntervals.PERFECT_OCTAVE
   ],
   directions: [
-    musicalIntervals.DIRECTION_ASC
+    musicalIntervalDirections.ASC
   ],
   instrument: musicalInstruments.BASS,
   country: '',
-  name: '',
-  tempo: 80
+  name: ''
 };
 
 function toggleArrayValue(itemList, item) {
@@ -48,7 +48,7 @@ export default function settingsReducer(state = initialState, action) {
       return Object.assign({}, state,
         { country: action.country });
 
-    case actionTypes.SELECT_INSTRUMENT:
+    case actionTypes.SET_INSTRUMENT:
       return Object.assign({}, state,
         { instrument: action.instrument });
 

@@ -78,7 +78,7 @@ class SettingsContainer extends React.Component {
   }
 
   selectInstrument(event) {
-    return this.props.settingsActions.selectInstrument(event.target.value);
+    return this.props.settingsActions.setInstrument(event.target.value);
   }
 
   toggleMusicalInterval(event) {

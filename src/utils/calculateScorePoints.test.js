@@ -2,9 +2,10 @@
 import expect from 'expect';
 import calculateScorePoints from './calculateScorePoints';
 import * as musicalIntervals from '../constants/musicalIntervals';
+import * as musicalIntervalDirections from '../constants/musicalIntervalDirections';
 
 
-describe('Testing the calculateScorePoint function', () => {
+describe('Score Point Calculator', () => {
   it('should get the score point equals to 2 when only three intervals selected', () => {
     const result = calculateScorePoints({
       intervals: [
@@ -12,7 +13,7 @@ describe('Testing the calculateScorePoint function', () => {
         musicalIntervals.MAJOR_THIRD,
         musicalIntervals.TRITONE
       ],
-      directions: [musicalIntervals.DIRECTION_ASC]
+      directions: [musicalIntervalDirections.ASC]
     });
 
     expect(result).toEqual(2);
@@ -25,7 +26,7 @@ describe('Testing the calculateScorePoint function', () => {
         musicalIntervals.MAJOR_THIRD,
         musicalIntervals.TRITONE
       ],
-      directions: [musicalIntervals.DIRECTION_ASC, musicalIntervals.DIRECTION_DESC]
+      directions: [musicalIntervalDirections.ASC, musicalIntervalDirections.DESC]
     });
 
     expect(result).toEqual(4);
@@ -47,7 +48,7 @@ describe('Testing the calculateScorePoint function', () => {
         musicalIntervals.MAJOR_SEVENTH,
         musicalIntervals.PERFECT_OCTAVE
       ],
-      directions: [musicalIntervals.DIRECTION_ASC]
+      directions: [musicalIntervalDirections.ASC]
     });
 
     expect(result).toEqual(11);
@@ -69,13 +70,13 @@ describe('Testing the calculateScorePoint function', () => {
         musicalIntervals.MAJOR_SEVENTH,
         musicalIntervals.PERFECT_OCTAVE
       ],
-      directions: [musicalIntervals.DIRECTION_DESC]
+      directions: [musicalIntervalDirections.DESC]
     });
 
     expect(result).toEqual(11);
   });
 
-  it('should get the score point equals to 22 when all intervalahs selected (desc)', () => {
+  it('should get the score point equals to 22 when all intervals selected (desc)', () => {
     const result = calculateScorePoints({
       intervals: [
         musicalIntervals.MINOR_SECOND,
@@ -91,7 +92,7 @@ describe('Testing the calculateScorePoint function', () => {
         musicalIntervals.MAJOR_SEVENTH,
         musicalIntervals.PERFECT_OCTAVE
       ],
-      directions: [musicalIntervals.DIRECTION_ASC, musicalIntervals.DIRECTION_DESC]
+      directions: [musicalIntervalDirections.ASC, musicalIntervalDirections.DESC]
     });
 
     expect(result).toEqual(22);

@@ -28,7 +28,7 @@ const taskPromise = Promise.resolve().then(() => {
 
       const index = ++buildData.completedTaskCount;
       const total = buildData.taskCount;
-      console.log(`[${index}/${total}] ${tasks.OLD_BUILD_CLEANING} is done.`.green);
+      console.log(`[${index}/${total}] ${tasks.OLD_BUILD_CLEANING} is completed.`.green);
       resolve();
     });
   });
@@ -39,7 +39,7 @@ const taskPromise = Promise.resolve().then(() => {
 
       const index = ++buildData.completedTaskCount;
       const total = buildData.taskCount;
-      console.log(`[${index}/${total}] ${tasks.SERVER_BUNDLE} is done.`.green);
+      console.log(`[${index}/${total}] ${tasks.SERVER_BUNDLE} is completed.`.green);
       resolve();
     });
   });
@@ -50,7 +50,7 @@ const taskPromise = Promise.resolve().then(() => {
 
       const index = ++buildData.completedTaskCount;
       const total = buildData.taskCount;
-      console.log(`[${index}/${total}] ${tasks.CLIENT_BUNDLE} is done.`.green);
+      console.log(`[${index}/${total}] ${tasks.CLIENT_BUNDLE} is completed.`.green);
 
       resolve();
     });
@@ -62,7 +62,7 @@ const taskPromise = Promise.resolve().then(() => {
 
       const index = ++buildData.completedTaskCount;
       const total = buildData.taskCount;
-      console.log(`[${index}/${total}] ${tasks.STATIC_FILE_COPYING} is done.`.green);
+      console.log(`[${index}/${total}] ${tasks.STATIC_FILE_COPYING} is completed.`.green);
       resolve();
     });
   });

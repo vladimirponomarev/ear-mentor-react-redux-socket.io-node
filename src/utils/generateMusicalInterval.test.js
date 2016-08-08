@@ -3,14 +3,16 @@ import expect from 'expect';
 import generateMusicalInterval from './generateMusicalInterval';
 import * as musicalInstrument from '../constants/musicalInstruments';
 import * as musicalIntervals from '../constants/musicalIntervals';
+import * as musicalIntervalDirections from '../constants/musicalIntervalDirections';
 import * as musicalNotes from '../constants/musicalNotes';
 
-describe('Testing musical interval generation', () => {
+
+describe('Musical Interval Generator', () => {
   it('should always get the perfect fifth interval (asc)', () => {
     const settings = {
       instrument: musicalInstrument.BASS,
       intervals: [musicalIntervals.PERFECT_FIFTH],
-      directions: [musicalIntervals.DIRECTION_ASC]
+      directions: [musicalIntervalDirections.ASC]
     };
     const notes = generateMusicalInterval(settings);
 
@@ -21,7 +23,7 @@ describe('Testing musical interval generation', () => {
     const settings = {
       instrument: musicalInstrument.BASS,
       intervals: [musicalIntervals.PERFECT_FIFTH],
-      directions: [musicalIntervals.DIRECTION_DESC]
+      directions: [musicalIntervalDirections.DESC]
     };
 
     const notes = generateMusicalInterval(settings);
@@ -33,7 +35,7 @@ describe('Testing musical interval generation', () => {
     const settings = {
       instrument: musicalInstrument.BASS,
       intervals: [musicalIntervals.PERFECT_FIFTH],
-      directions: [musicalIntervals.DIRECTION_ASC, musicalIntervals.DIRECTION_DESC]
+      directions: [musicalIntervalDirections.ASC, musicalIntervalDirections.DESC]
     };
 
     const notes = generateMusicalInterval(settings);
@@ -53,7 +55,7 @@ describe('Testing musical interval generation', () => {
         musicalIntervals.MAJOR_THIRD,
         musicalIntervals.TRITONE
       ],
-      directions: [musicalIntervals.DIRECTION_ASC]
+      directions: [musicalIntervalDirections.ASC]
     };
 
     const notes = generateMusicalInterval(settings);
@@ -74,7 +76,7 @@ describe('Testing musical interval generation', () => {
         musicalIntervals.MAJOR_THIRD,
         musicalIntervals.TRITONE
       ],
-      directions: [musicalIntervals.DIRECTION_DESC]
+      directions: [musicalIntervalDirections.DESC]
     };
 
     const notes = generateMusicalInterval(settings);
@@ -95,7 +97,7 @@ describe('Testing musical interval generation', () => {
         musicalIntervals.MAJOR_THIRD,
         musicalIntervals.TRITONE
       ],
-      directions: [musicalIntervals.DIRECTION_ASC, musicalIntervals.DIRECTION_DESC]
+      directions: [musicalIntervalDirections.ASC, musicalIntervalDirections.DESC]
     };
 
     const notes = generateMusicalInterval(settings);
@@ -129,7 +131,7 @@ describe('Testing musical interval generation', () => {
         musicalIntervals.MINOR_SEVENTH,
         musicalIntervals.MAJOR_SEVENTH
       ],
-      directions: [musicalIntervals.DIRECTION_ASC, musicalIntervals.DIRECTION_DESC]
+      directions: [musicalIntervalDirections.ASC, musicalIntervalDirections.DESC]
     };
 
     const notes = generateMusicalInterval(settings);

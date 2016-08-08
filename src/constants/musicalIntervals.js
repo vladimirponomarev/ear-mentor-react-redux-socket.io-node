@@ -10,6 +10,3 @@ export const MAJOR_SIXTH = 9;
 export const MINOR_SEVENTH = 10;
 export const MAJOR_SEVENTH = 11;
 export const PERFECT_OCTAVE = 12;
-
-export const DIRECTION_ASC = 'ASC';
-export const DIRECTION_DESC = 'DESC';

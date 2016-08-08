@@ -4,7 +4,7 @@ import countries from '../json/countries.json';
 import { getCountryList, getCountryByCode, getCountryByName } from './country';
 
 
-describe('Testing the country functions', () => {
+describe('Country', () => {
   it('should get a complete list of countries', () => {
     const countryList = getCountryList();
 

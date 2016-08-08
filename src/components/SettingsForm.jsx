@@ -4,6 +4,7 @@ import Autocomplete from 'react-autocomplete';
 import { getCountryList } from '../utils/country';
 import * as musicalInstruments from '../constants/musicalInstruments';
 import * as musicalIntervals from '../constants/musicalIntervals';
+import * as musicalIntervalDirections from '../constants/musicalIntervalDirections';
 
 
 const SettingsForm = ({
@@ -303,9 +304,9 @@ const SettingsForm = ({
             <label className="checkbox-control" htmlFor="direction-asc-checkbox">
               <input
                 id="direction-asc-checkbox"
-                value={musicalIntervals.DIRECTION_ASC}
+                value={musicalIntervalDirections.ASC}
                 onChange={onChangeMusicalIntervalDirection}
-                checked={settings.directions.includes(musicalIntervals.DIRECTION_ASC)}
+                checked={settings.directions.includes(musicalIntervalDirections.ASC)}
                 type="checkbox"
               />
               <span>Ascending</span>
@@ -316,9 +317,9 @@ const SettingsForm = ({
             <label className="checkbox-control" htmlFor="direction-desc-checkbox">
               <input
                 id="direction-desc-checkbox"
-                value={musicalIntervals.DIRECTION_DESC}
+                value={musicalIntervalDirections.DESC}
                 onChange={onChangeMusicalIntervalDirection}
-                checked={settings.directions.includes(musicalIntervals.DIRECTION_DESC)}
+                checked={settings.directions.includes(musicalIntervalDirections.DESC)}
                 type="checkbox"
               />
               <span>Descending</span>
