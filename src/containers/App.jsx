@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Spinner from '../components/Spinner.jsx';
+import LoaderScreen from '../components/LoaderScreen.jsx';
+import { loadAudioFiles, getLoadingProgress } from '../utils/audioManager';
 import * as environmentActions from '../actions/environmentActions';
 
 
@@ -12,7 +14,9 @@ class App extends React.Component {
     super(props, context);
 
     this.state = {
-      isInRequest: true
+      isInRequest: true,
+      isInAssetLoading: false,
+      assetLoadingProgress: 0
     };
   }
 
@@ -22,9 +26,48 @@ class App extends React.Component {
         isInRequest: nextProps.environment.requestInProgressCount > 0
       });
     }
+
+    if (!this.state.isInAssetLoading && nextProps.environment.isInAssetLoading) {
+      this.setState({
+        isInAssetLoading: nextProps.environment.isInAssetLoading
+      });
+
+      loadAudioFiles(nextProps.environment.assets);
+      this.listenAssetLoadingProgress();
+    }
   }
 
+  listenAssetLoadingProgress() {
+    const timerId = setInterval(() => {
+      const progress = getLoadingProgress();
+
+      this.setState({
+        assetLoadingProgress: progress
+      });
+
+      if (progress === 100) {
+        clearInterval(timerId);
+
+        this.setState({
+          isInAssetLoading: false
+        });
+
+        this.props.environmentActions.completeAssetLoading();
+      }
+    }, 250);
+  }
+
+
   render() {
+    if (this.state.isInAssetLoading) {
+      return (
+        <LoaderScreen
+          isVisible={this.state.isInAssetLoading}
+          progress={this.state.assetLoadingProgress}
+        />
+      );
+    }
+
     return (
       <div className="page">
         <div className="container">

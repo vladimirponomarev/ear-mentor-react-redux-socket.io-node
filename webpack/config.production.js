@@ -32,7 +32,7 @@ export const server = {
           path.join(__dirname, '../config')
         ],
         query: {
-          presets: ["es2015", "es2016", "react"]
+          presets: ['es2015', 'es2016', 'react']
         }
       },
       {
@@ -70,7 +70,11 @@ export const client = {
       {
         test: /\.jsx?$/,
         include: path.join(__dirname, '../src'),
-        loader: 'babel'
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'es2016', 'react'],
+          plugins: ['array-includes']
+        }
       },
       {
         test: /\.json$/,

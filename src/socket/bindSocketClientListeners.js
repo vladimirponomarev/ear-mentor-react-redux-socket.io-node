@@ -22,6 +22,12 @@ export default function (dependencies) {
   io.on('confirm_game_start', (gameData) => {
     store.dispatch(gameActions.setPlayerId(gameData.playerId));
 
-    return store.dispatch(environmentActions.loadAssets(gameData.resources));
+    return store.dispatch(environmentActions.loadAssets(gameData.sounds));
   });
+
+  io.on('question', (question) => {
+    console.log(question);
+    return store.dispatch(gameActions.completeQuestionRequest(question));
+  });
+
 }

@@ -2,14 +2,30 @@
 import express from 'express';
 import socketIoServer from 'socket.io';
 import sqlite3 from 'sqlite3';
+import path from 'path';
 import colors from 'colors'; // eslint-disable-line no-unused-vars
+import { decrypt } from '../utils/encryptor';
 import schema from '../schema';
 import bindSocketServerListeners from '../socket/bindSocketServerListeners';
 import config from '../../config';
 
 
-const app = express();
 const db = new sqlite3.Database(config.db);
+const app = express();
+app.get('/data/:filename', (req, res) => {
+  try {
+    const text = decrypt(config.secretKey, req.params.filename);
+    const chunks = text.split('.');
+    const instrument = chunks[0].toLowerCase();
+    const note = chunks[1].toLowerCase().replace('#', '-sharp');
+    const file = path.join(config.paths.staticDirectoryDest, `./audio/${instrument}/${note}.mp3`);
+
+    return res.sendFile(file);
+  } catch (e) {
+    return res.status(404);
+  }
+});
+
 
 export default app;
 

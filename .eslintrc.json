@@ -4,7 +4,9 @@
     "react"
   ],
   "env": {
-    "mocha": true
+    "mocha": true,
+    "node": true,
+    "browser": true
   },
   "ecmaFeatures": {
     "spread": true
