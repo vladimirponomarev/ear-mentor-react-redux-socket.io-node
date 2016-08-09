@@ -26,8 +26,6 @@ export default function (dependencies) {
   });
 
   io.on('question', (question) => {
-    console.log(question);
     return store.dispatch(gameActions.completeQuestionRequest(question));
   });
-
 }
