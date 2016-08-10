@@ -3,7 +3,7 @@ node_js:
   - 4.2
 
 before_install:
-  - cp config.js.dist config.js
+  - cp config/index.js.dist config/index.js
 
 install:
   - npm install -g mocha
