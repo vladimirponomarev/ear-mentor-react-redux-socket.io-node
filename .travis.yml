@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - 4.2
+
+before_install:
+  - cp config.js.dist config.js
+
+install:
+  - npm install -g mocha
+  - npm install
