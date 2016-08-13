@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import GameForm from '../components/GameForm.jsx';
 import * as gameActions from '../actions/gameActions';
 import * as answerTypes from '../constants/answerTypes';
 
@@ -52,7 +53,7 @@ class Game extends React.Component {
     return (
       <div className="row">
         <div className="col-xs-12 col-lg-8">
-          Game PROCESS
+          <GameForm settings={this.state.settings} onMusicalIntervalClick={this.selectInterval} />
         </div>
       </div>
     );
