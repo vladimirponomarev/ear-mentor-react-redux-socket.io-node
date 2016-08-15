@@ -38,21 +38,19 @@ export function startServer() {
         resolve();
       });
     });
-  }).then(() => {
-    return new Promise((resolve, reject) => {
-      const server = app.listen(config.port);
-      const io = socketIoServer.listen(server);
-      bindSocketServerListeners({ io, db });
+  }).then(() => new Promise((resolve, reject) => {
+    const server = app.listen(config.port);
+    const io = socketIoServer.listen(server);
+    bindSocketServerListeners({ io, db });
 
-      server.on('listening', () => {
-        resolve(server.address());
-      });
-
-      server.on('error', (err) => {
-        reject(err);
-      });
+    server.on('listening', () => {
+      resolve(server.address());
     });
-  }).then((address) => {
+
+    server.on('error', (err) => {
+      reject(err);
+    });
+  })).then((address) => {
     console.log(`The server is listening on ${address.port} port.`);
   }).catch((e) => {
     console.error(String(e).red);

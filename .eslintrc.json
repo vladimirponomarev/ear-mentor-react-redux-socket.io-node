@@ -19,7 +19,6 @@
     "no-var": 1,
     "eol-last": 0,
     "semi": [1, "always"],
-    "comma-dangle": [0, "never"],
-    "arrow-body-style": 0
+    "comma-dangle": [0, "never"]
   }
 }

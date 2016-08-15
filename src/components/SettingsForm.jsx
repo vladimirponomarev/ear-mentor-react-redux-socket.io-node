@@ -359,11 +359,10 @@ const SettingsForm = ({
             }}
             items={getCountryList()}
             getItemValue={(item) => item.name}
-            shouldItemRender={(item, val) => {
-              return val.length >= 2 &&
-                (item.name.toLowerCase().indexOf(val.toLowerCase()) !== -1 ||
-                 item.code.toLowerCase().indexOf(val.toLowerCase()) !== -1);
-            }}
+            shouldItemRender={(item, val) => val.length >= 2 &&
+              (item.name.toLowerCase().indexOf(val.toLowerCase()) !== -1 ||
+               item.code.toLowerCase().indexOf(val.toLowerCase()) !== -1)
+            }
             renderItem={(item, isHighlighted) => (
               <div
                 className={isHighlighted ?

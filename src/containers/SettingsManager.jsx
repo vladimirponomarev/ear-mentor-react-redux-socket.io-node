@@ -7,8 +7,6 @@ import { getCountryByName } from '../utils/country';
 import { isSettingsDataValid } from '../utils/validator';
 import * as settingsActions from '../actions/settingsActions';
 import * as environmentActions from '../actions/environmentActions';
-import * as musicalIntervals from '../constants/musicalIntervals';
-import * as musicalInstruments from '../constants/musicalInstruments';
 
 
 class SettingsContainer extends React.Component {

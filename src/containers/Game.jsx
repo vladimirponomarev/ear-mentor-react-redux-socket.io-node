@@ -2,8 +2,9 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import GameForm from '../components/GameForm.jsx';
+import AudioWidget from '../components/AudioWidget.jsx';
+import AudioManager from '../utils/AudioManager';
 import * as gameActions from '../actions/gameActions';
-import * as answerTypes from '../constants/answerTypes';
 
 
 class Game extends React.Component {
@@ -35,25 +36,58 @@ class Game extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.question.number < nextProps.game.question.number) {
       this.question = Object.assign({}, nextProps.game.question);
+
+      this.playQuestion();
     }
   }
 
   playQuestion() {
-  }
+    const tempo = 80;
+    const timeoutValue = (60 * 1000) / tempo;
+    const question = this.question;
+    let hasFirstNotePlayed = false;
+    let hasSecondNotePlayed = false;
 
-  repeatQuestion(event) {
-    event.preventDefault();
+    AudioManager.pauseAll();
+
+    // set a little delay of 30 ms to complete pausing of all audio files
+    let questionPlayerTimerId = setTimeout(function play() {
+      if (!hasFirstNotePlayed) {
+        AudioManager.play(question.firstNote);
+
+        hasFirstNotePlayed = true;
+        questionPlayerTimerId = setTimeout(play, timeoutValue);
+      } else if (!hasSecondNotePlayed) {
+        AudioManager.pause(question.firstNote);
+        AudioManager.play(question.secondNote);
+
+        hasSecondNotePlayed = true;
+        questionPlayerTimerId = setTimeout(play, timeoutValue * 3);
+      } else {
+        AudioManager.pause(question.secondNote);
+        clearTimeout(questionPlayerTimerId);
+      }
+    }, 30);
   }
 
   selectInterval(event) {
     event.preventDefault();
   }
 
+  repeatQuestion(event) {
+    event.preventDefault();
+
+    this.playQuestion();
+  }
+
   render() {
     return (
       <div className="row">
-        <div className="col-xs-12 col-lg-8">
+        <div className="col-sm-12 col-md-7 col-lg-8">
           <GameForm settings={this.state.settings} onMusicalIntervalClick={this.selectInterval} />
+        </div>
+        <div className="col-sm-12 col-md-5 col-lg-4">
+          <AudioWidget onRepeatButtonClick={this.repeatQuestion} />
         </div>
       </div>
     );

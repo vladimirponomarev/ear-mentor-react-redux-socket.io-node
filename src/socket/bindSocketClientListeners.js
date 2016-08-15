@@ -15,9 +15,7 @@ export default function (dependencies) {
   const store = dependencies.store;
 
 
-  io.on('connect', () => {
-    return store.dispatch(environmentActions.completeConnectionToServer());
-  });
+  io.on('connect', () => store.dispatch(environmentActions.completeConnectionToServer()));
 
   io.on('confirm_game_start', (gameData) => {
     store.dispatch(gameActions.setPlayerId(gameData.playerId));
@@ -25,7 +23,5 @@ export default function (dependencies) {
     return store.dispatch(environmentActions.loadAssets(gameData.sounds));
   });
 
-  io.on('question', (question) => {
-    return store.dispatch(gameActions.completeQuestionRequest(question));
-  });
+  io.on('question', question => store.dispatch(gameActions.completeQuestionRequest(question)));
 }

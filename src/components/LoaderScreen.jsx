@@ -22,7 +22,7 @@ const LoaderScreenComponent = ({ isVisible, progress }) => {
 
   return (
     <div style={overlayStyle} className="loader-screen">
-      <div className={progressBarClassName}></div>
+      <div className={progressBarClassName} />
       <div className="loader-screen__overlay">{progress}%</div>
     </div>
   );

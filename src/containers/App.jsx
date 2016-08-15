@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Spinner from '../components/Spinner.jsx';
 import LoaderScreen from '../components/LoaderScreen.jsx';
-import { loadAudioFiles, getLoadingProgress } from '../utils/audioManager';
+import AudioManager from '../utils/AudioManager';
 import * as environmentActions from '../actions/environmentActions';
 
 
@@ -32,14 +32,14 @@ class App extends React.Component {
         isInAssetLoading: nextProps.environment.isInAssetLoading
       });
 
-      loadAudioFiles(nextProps.environment.assets);
+      AudioManager.loadFiles(nextProps.environment.assets);
       this.listenAssetLoadingProgress();
     }
   }
 
   listenAssetLoadingProgress() {
     const timerId = setInterval(() => {
-      const progress = getLoadingProgress();
+      const progress = AudioManager.getLoadingProgress();
 
       this.setState({
         assetLoadingProgress: progress

@@ -44,5 +44,3 @@ Index.propTypes = {
 };
 
 export default connect(mapStateToProps)(Index);
-
-

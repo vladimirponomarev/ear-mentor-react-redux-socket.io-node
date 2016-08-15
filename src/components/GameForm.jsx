@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import classnames from 'classnames';
 import * as musicalIntervals from '../constants/musicalIntervals';
 import * as musicalIntervalDirections from '../constants/musicalIntervalDirections';
 
@@ -9,7 +8,7 @@ const GameForm = ({
   onMusicalIntervalClick
 }) => {
   const hasAscDirection = settings.directions.includes(musicalIntervalDirections.ASC);
-  const hasDescDirection = true; // settings.directions.includes(musicalIntervalDirections.DESC);
+  const hasDescDirection = settings.directions.includes(musicalIntervalDirections.DESC);
 
   const hasMinorSecond = settings.intervals.includes(musicalIntervals.MINOR_SECOND);
   const hasMajorSecond = settings.intervals.includes(musicalIntervals.MAJOR_SECOND);
@@ -338,7 +337,7 @@ const GameForm = ({
       </fieldset>
 
     </div>
-  )
+  );
 };
 
 GameForm.propTypes = {

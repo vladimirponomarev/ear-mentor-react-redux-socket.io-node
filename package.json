@@ -12,7 +12,7 @@
     "start": "NODE_ENV=production node ./dist/server.js",
     "start:dev": "NODE_ENV=development babel-node ./src/server.development.js",
     "build": "NODE_ENV=production babel-node ./bin/build.js",
-    "lint": "node_modules/.bin/esw config src tools",
+    "lint": "node_modules/.bin/esw --ext .jsx,.js config src tools",
     "lint:watch": "npm run lint -- --watch"
   },
   "author": "Vladimir Ponomarev",
