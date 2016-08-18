@@ -56,7 +56,7 @@ export default function (dependencies) {
         stml.run([player.score, player.id], () => {
           cleanUpFromPlayer(player);
 
-          socket.emit('game_over', player.score);
+          socket.emit('game_over');
         });
       });
     }
@@ -144,16 +144,18 @@ export default function (dependencies) {
       return socket.emit('question', payload);
     });
 
-    socket.on('answer', (answer) => {
+    socket.on('answer', (payload) => {
       const player = players.find(one => one.socketId === socket.id);
-      if (!player || player.question.number === 0) {
+      if (!player || player.question.number === 0 || player.question.hasAnswered) {
         return socket.emit('bad_request', 'Invalid action.');
       }
 
-      const isAnswerCorrect = player.question.answer === (player.question.question + answer);
+      const answer = player.question.question + parseInt(payload, 10);
+      const isAnswerCorrect = player.question.answer === answer;
 
       if (isAnswerCorrect) {
         player.score += calculateScorePoints(player.settings);
+        player.question.hasAnswered = true;
         return processCorrectAnswer(player, socket);
       }
 

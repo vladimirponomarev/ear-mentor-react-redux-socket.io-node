@@ -8,6 +8,7 @@ describe('Environment Reducer', () => {
   const initialState = {
     isInGame: false,
     isInAssetLoading: false,
+    hasPlayerLost: false,
     assets: [],
     requestInProgressCount: 0
   };

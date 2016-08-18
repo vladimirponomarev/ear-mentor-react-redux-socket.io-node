@@ -19,9 +19,18 @@ export default function (dependencies) {
 
   io.on('confirm_game_start', (gameData) => {
     store.dispatch(gameActions.setPlayerId(gameData.playerId));
-
-    return store.dispatch(environmentActions.loadAssets(gameData.sounds));
+    store.dispatch(environmentActions.loadAssets(gameData.sounds));
   });
 
   io.on('question', question => store.dispatch(gameActions.completeQuestionRequest(question)));
+
+  io.on('confirm_incorrect_answer', () => store.dispatch(gameActions.confirmIncorrectAnswer()));
+
+  io.on('confirm_correct_answer', (score) => {
+    store.dispatch(gameActions.confirmCorrectAnswer());
+    store.dispatch(gameActions.updatePlayerScore(score));
+    store.dispatch(gameActions.requestQuestion());
+  });
+
+  io.on('game_over', () => store.dispatch(gameActions.overGame()));
 }

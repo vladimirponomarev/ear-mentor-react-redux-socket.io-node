@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import GameForm from '../components/GameForm.jsx';
 import AudioWidget from '../components/AudioWidget.jsx';
 import AudioManager from '../utils/AudioManager';
+import GameOverModal from '../components/GameOverModal.jsx';
 import * as gameActions from '../actions/gameActions';
+import * as environmentActions from '../actions/environmentActions';
 
 
 class Game extends React.Component {
@@ -24,6 +26,7 @@ class Game extends React.Component {
 
     this.selectInterval = this.selectInterval.bind(this);
     this.repeatQuestion = this.repeatQuestion.bind(this);
+    this.replay = this.replay.bind(this);
   }
 
   componentDidMount() {
@@ -32,12 +35,23 @@ class Game extends React.Component {
     }
   }
 
-
   componentWillReceiveProps(nextProps) {
     if (this.question.number < nextProps.game.question.number) {
       this.question = Object.assign({}, nextProps.game.question);
 
       this.playQuestion();
+    }
+
+    if (this.state.game.incorrectAnswers.length !== nextProps.game.incorrectAnswers.length) {
+      this.setState({
+        game: nextProps.game
+      });
+    }
+
+    if (nextProps.game.hasPlayerLost) {
+      this.setState({
+        game: nextProps.game
+      });
     }
   }
 
@@ -72,6 +86,8 @@ class Game extends React.Component {
 
   selectInterval(event) {
     event.preventDefault();
+
+    this.props.gameActions.sendAnswer(event.target.value);
   }
 
   repeatQuestion(event) {
@@ -80,15 +96,31 @@ class Game extends React.Component {
     this.playQuestion();
   }
 
+  replay(event) {
+    event.preventDefault();
+
+    this.props.environmentActions.startGame(this.state.settings);
+  }
+
   render() {
     return (
       <div className="row">
         <div className="col-sm-12 col-md-7 col-lg-8">
-          <GameForm settings={this.state.settings} onMusicalIntervalClick={this.selectInterval} />
+          <GameForm
+            settings={this.state.settings}
+            onMusicalIntervalClick={this.selectInterval}
+            incorrectAnswers={this.state.game.incorrectAnswers}
+          />
         </div>
         <div className="col-sm-12 col-md-5 col-lg-4">
           <AudioWidget onRepeatButtonClick={this.repeatQuestion} />
         </div>
+
+        <GameOverModal
+          isVisible={this.state.game.hasPlayerLost}
+          score={this.state.game.score}
+          onReplayButtonClick={this.replay}
+        />
       </div>
     );
   }
@@ -99,7 +131,8 @@ Game.propTypes = {
   environment: PropTypes.object.isRequired,
   settings: PropTypes.object.isRequired,
   game: PropTypes.object.isRequired,
-  gameActions: PropTypes.object.isRequired
+  gameActions: PropTypes.object.isRequired,
+  environmentActions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
@@ -112,7 +145,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    gameActions: bindActionCreators(gameActions, dispatch)
+    gameActions: bindActionCreators(gameActions, dispatch),
+    environmentActions: bindActionCreators(environmentActions, dispatch)
   };
 }
 

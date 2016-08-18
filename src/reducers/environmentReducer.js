@@ -44,10 +44,10 @@ export default function environmentReducer(state = initialState, action) {
   if (action.type === actionTypes.COMPLETE_ASSET_LOADING) {
     updatedState.isInAssetLoading = false;
     updatedState.isInGame = true;
+    updatedState.hasPlayerLost = false;
 
     hasStateChanged = true;
   }
-
 
   if (hasStateChanged) {
     return Object.assign({}, state, updatedState);

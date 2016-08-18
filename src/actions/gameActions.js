@@ -1,12 +1,9 @@
 import * as actionTypes from '../constants/actionTypes';
 
-export function sendAnswer(answer, type) {
+export function sendAnswer(answer) {
   return {
     type: actionTypes.SEND_ANSWER,
-    payload: {
-      answer,
-      type
-    }
+    payload: answer
   };
 }
 
@@ -21,6 +18,12 @@ export function updateRating(rating) {
   return {
     type: actionTypes.UPDATE_RATING,
     rating
+  };
+}
+
+export function overGame() {
+  return {
+    type: actionTypes.OVER_GAME
   };
 }
 
@@ -43,5 +46,18 @@ export function completeQuestionRequest(question) {
   return {
     type: actionTypes.COMPLETE_QUESTION_REQUEST,
     question
+  };
+}
+
+export function confirmIncorrectAnswer(incorrectAnswer) {
+  return {
+    type: actionTypes.CONFIRM_INCORRECT_ANSWER,
+    incorrectAnswer
+  };
+}
+
+export function confirmCorrectAnswer() {
+  return {
+    type: actionTypes.CONFIRM_CORRECT_ANSWER
   };
 }

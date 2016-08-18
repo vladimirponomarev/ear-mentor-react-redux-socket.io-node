@@ -259,6 +259,20 @@ for i in (1..$steps)
 .interval-control
   font-size: 14px
 
+/* ============= */
+/* === Modal === */
+/* ============= */
+.modal__title
+  text-align: center
+  margin-bottom: 32px
+
+.modal__message
+  text-align: center
+
+.modal__action
+  margin-top: 24px
+  text-align: center
+
 
 /* ================= */
 /* === Game Form === */
@@ -275,6 +289,17 @@ for i in (1..$steps)
   font-size: 18px
   text-align: center
   margin: 0 0 18px 0
+
+.btn-incorrect-answer {
+  background-color: $colorRed
+  border-color: $colorRed
+
+  &:hover, &:focus, &:active,
+  &[disabled]:hover, &[disabled]:focus, &[disabled]:active {
+    background-color: $colorRed
+    border-color: $colorRed
+  }
+}
 
 
 /* ===================== */

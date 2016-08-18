@@ -2,15 +2,18 @@
 import expect from 'expect';
 import gameReducer from './gameReducer';
 import * as gameActions from '../actions/gameActions';
+import * as musicalIntervals from '../constants/musicalIntervals';
 
 
 describe('Game Reducer', () => {
   const initialState = {
     playerId: null,
     question: {},
-    answer: '',
+    givenAnswer: '',
+    incorrectAnswers: [],
     score: 0,
-    rating: []
+    rating: [],
+    hasPlayerLost: false
   };
 
 
@@ -55,5 +58,47 @@ describe('Game Reducer', () => {
     const finalState = gameReducer(initialState, action);
 
     expect(finalState.question).toEqual(question);
+  });
+
+  it('should add an incorrect answer', () => {
+    const answer = -musicalIntervals.MINOR_THIRD;
+
+    const firstAction = gameActions.sendAnswer(answer);
+    const updatedState = gameReducer(initialState, firstAction);
+    const secondAction = gameActions.confirmIncorrectAnswer();
+    const finalState = gameReducer(updatedState, secondAction);
+
+    expect(finalState.incorrectAnswers).toInclude(answer);
+  });
+
+  it('should reset incorrect answers when a new question received', () => {
+    initialState.incorrectAnswers = [-musicalIntervals.MINOR_THIRD, -musicalIntervals.MAJOR_SECOND];
+    const question = {
+      number: 1,
+      firstNote: 'A',
+      secondNote: 'C'
+    };
+    const action = gameActions.completeQuestionRequest(question);
+
+    const finalState = gameReducer(initialState, action);
+
+    expect(finalState.incorrectAnswers.length).toEqual(0);
+  });
+
+  it('should set a given answer', () => {
+    const answer = -musicalIntervals.MINOR_THIRD;
+    const action = gameActions.sendAnswer(answer);
+
+    const finalState = gameReducer(initialState, action);
+
+    expect(finalState.givenAnswer).toEqual(answer);
+  });
+
+  it('should over a game', () => {
+    const action = gameActions.overGame(1000);
+
+    const finalState = gameReducer(initialState, action);
+
+    expect(finalState.hasPlayerLost).toBeTruthy();
   });
 });

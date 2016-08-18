@@ -19,7 +19,7 @@ const initialState = {
 };
 
 function toggleArrayValue(itemList, item) {
-  if (itemList.indexOf(item) !== -1) {
+  if (itemList.includes(item)) {
     return itemList.filter((element) => element !== item);
   }
 
