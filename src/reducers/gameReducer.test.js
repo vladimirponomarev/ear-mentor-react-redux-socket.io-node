@@ -35,18 +35,6 @@ describe('Game Reducer', () => {
     expect(finalState.score).toEqual(score);
   });
 
-  it("should update a rating list", () => {
-    const rating = [
-      { id: 1, name: 'Jane Doe', country: 'US', score: 200 },
-      { id: 2, name: 'John Doe', country: 'RU', score: 300 }
-    ];
-    const action = gameActions.updateRating(rating);
-
-    const finalState = gameReducer(initialState, action);
-
-    expect(finalState.rating).toEqual(rating);
-  });
-
   it("should set a question", () => {
     const question = {
       number: 1,

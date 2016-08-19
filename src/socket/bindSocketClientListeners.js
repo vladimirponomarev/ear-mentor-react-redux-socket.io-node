@@ -1,5 +1,6 @@
 import * as environmentActions from '../actions/environmentActions';
 import * as gameActions from '../actions/gameActions';
+import * as ratingActions from '../actions/ratingActions';
 
 
 export default function (dependencies) {
@@ -31,6 +32,8 @@ export default function (dependencies) {
     store.dispatch(gameActions.updatePlayerScore(score));
     store.dispatch(gameActions.requestQuestion());
   });
+
+  io.on('rating', players => store.dispatch(ratingActions.updateRating(players)));
 
   io.on('game_over', () => store.dispatch(gameActions.overGame()));
 }

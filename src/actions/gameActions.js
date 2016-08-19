@@ -14,13 +14,6 @@ export function setPlayerId(playerId) {
   };
 }
 
-export function updateRating(rating) {
-  return {
-    type: actionTypes.UPDATE_RATING,
-    rating
-  };
-}
-
 export function overGame() {
   return {
     type: actionTypes.OVER_GAME

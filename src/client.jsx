@@ -6,6 +6,7 @@ import { connectToServer } from './actions/environmentActions';
 import configureStore from './store/configureStore';
 import routes from './routes.jsx';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../node_modules/flag-icon-css/css/flag-icon.min.css';
 import './styles/app.styl';
 
 const store = configureStore();

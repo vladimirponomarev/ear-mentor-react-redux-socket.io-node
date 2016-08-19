@@ -7,7 +7,6 @@ const initialState = {
   givenAnswer: '',
   incorrectAnswers: [],
   score: 0,
-  rating: [],
   hasPlayerLost: false
 };
 
@@ -29,10 +28,6 @@ export default function gameReducer(state = initialState, action) {
     case actionTypes.SEND_ANSWER:
       return Object.assign({}, state,
         { givenAnswer: action.payload });
-
-    case actionTypes.UPDATE_RATING:
-      return Object.assign({}, state,
-        { rating: action.rating });
 
     case actionTypes.UPDATE_PLAYER_SCORE:
       return Object.assign({}, state,

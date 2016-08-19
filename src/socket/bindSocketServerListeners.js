@@ -38,6 +38,7 @@ export default function (dependencies) {
   const db = dependencies.db;
   const players = [];
   const rating = [];
+  const ratingEmitInterval = 1000;
 
   function cleanUpFromPlayer(player) {
     const playerInRating = rating.find(one => one.id === player.id);
@@ -79,6 +80,10 @@ export default function (dependencies) {
 
     return socket.emit('confirm_correct_answer', player.score);
   }
+
+  setInterval(() => {
+    io.sockets.emit('rating', rating);
+  }, ratingEmitInterval);
 
   io.sockets.on('connection', (socket) => {
     socket.on('game_start', (settings) => {
