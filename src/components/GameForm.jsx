@@ -22,6 +22,7 @@ const GameForm = ({
   };
   const commonButtonClassNames = {
     'btn': true, // eslint-disable-line quote-props
+    'btn--bottom-offset': true,
     'btn-block': true,
     'btn-shadow': true,
     'btn-primary': true
@@ -47,7 +48,7 @@ const GameForm = ({
         value,
         direction: musicalIntervalDirections.ASC,
         buttonClassNames: Object.assign({}, commonButtonClassNames, {
-          'btn-incorrect-answer': isIntervalInAscIncorrect
+          'btn--incorrect': isIntervalInAscIncorrect
         }),
         isDisabled: hasNotBeenChosen || isIntervalInAscIncorrect
       }));
@@ -58,7 +59,7 @@ const GameForm = ({
         value: -value,
         direction: musicalIntervalDirections.DESC,
         buttonClassNames: Object.assign({}, commonButtonClassNames, {
-          'btn-incorrect-answer': isIntervalInDescIncorrect
+          'btn--incorrect': isIntervalInDescIncorrect
         }),
         isDisabled: hasNotBeenChosen || isIntervalInDescIncorrect
       }));
@@ -75,12 +76,10 @@ const GameForm = ({
 
   return (
     <div className="game">
-      <fieldset className="game__fieldset">
-        <legend>Select Interval</legend>
+      <fieldset style={ascIntervalSelectionStyle} className="module">
+        <legend className="module__caption">Ascending</legend>
 
-        <div style={ascIntervalSelectionStyle} className="interval-selection">
-          <h2 className="interval-selection__heading">Ascending</h2>
-
+        <div className="module__content">
           <div className="row">
             {ascMusicalIntervals.map((interval, index) => (
               <MusicalIntervalSelector
@@ -91,8 +90,12 @@ const GameForm = ({
             )}
           </div>
         </div>
+      </fieldset>
 
-        <div style={descIntervalSelectionStyle} className="interval-selection">
+      <fieldset style={descIntervalSelectionStyle} className="module">
+        <legend className="module__caption">Descending</legend>
+
+        <div className="module__content">
           <h2 className="interval-selection__heading">Descending</h2>
 
           <div className="row">

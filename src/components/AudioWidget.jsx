@@ -4,20 +4,20 @@ import React, { PropTypes } from 'react';
 const AudioWidget = ({
   onRepeatButtonClick
 }) => (
-  <div className="audio-widget">
-    <fieldset className="audio-widget__fieldset">
-      <legend>&nbsp;</legend>
-    </fieldset>
+  <fieldset className="module">
+    <legend className="module__caption">Audio</legend>
 
-    <div className="row">
-      <div className="col-sm-4 col-lg-8">&nbsp;</div>
-      <div className="col-sm-8 col-lg-4 text-right">
-        <button onClick={onRepeatButtonClick} className="btn btn-shadow btn-secondary">
-          Repeat
-        </button>
+    <div className="module__content">
+      <div className="row">
+        <div className="col-sm-4 col-lg-8">&nbsp;</div>
+        <div className="col-sm-8 col-lg-4 text-right">
+          <button onClick={onRepeatButtonClick} className="btn btn-shadow btn-primary">
+            Repeat
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </fieldset>
 );
 
 AudioWidget.propTypes = {

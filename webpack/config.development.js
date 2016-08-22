@@ -57,6 +57,10 @@ export default {
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file'
+      },
+      {
+        test: /\.png(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file'
       }
     ]
   }

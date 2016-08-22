@@ -105,25 +105,38 @@ class Game extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-sm-12 col-md-7 col-lg-8">
-          <GameForm
-            settings={this.state.settings}
-            onMusicalIntervalClick={this.selectInterval}
-            incorrectAnswers={this.state.game.incorrectAnswers}
-          />
-        </div>
-        <div className="col-sm-12 col-md-5 col-lg-4">
-          <Rating />
+      <div className="game">
 
-          <AudioWidget onRepeatButtonClick={this.repeatQuestion} />
-        </div>
+        <div className="game__top" />
 
-        <GameOverModal
-          isVisible={this.state.game.hasPlayerLost}
-          score={this.state.game.score}
-          onReplayButtonClick={this.replay}
-        />
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-12">
+              <p className="game__task">Select a correct interval between the notes you've just listened.</p>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-sm-12 col-md-7 col-lg-8">
+              <GameForm
+                settings={this.state.settings}
+                onMusicalIntervalClick={this.selectInterval}
+                incorrectAnswers={this.state.game.incorrectAnswers}
+              />
+            </div>
+            <div className="col-sm-12 col-md-5 col-lg-4">
+              <Rating />
+
+              <AudioWidget onRepeatButtonClick={this.repeatQuestion} />
+            </div>
+
+            <GameOverModal
+              isVisible={this.state.game.hasPlayerLost}
+              score={this.state.game.score}
+              onReplayButtonClick={this.replay}
+            />
+          </div>
+        </div>
       </div>
     );
   }

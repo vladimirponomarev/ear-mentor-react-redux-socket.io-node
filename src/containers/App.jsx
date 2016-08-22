@@ -84,9 +84,9 @@ class App extends React.Component {
               </ul>
             </nav>
           </div>
+        </div>
 
           {this.props.children}
-        </div>
 
         <footer className="footer">
           <div className="container clearfix">

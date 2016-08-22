@@ -58,24 +58,20 @@ class Rating extends React.Component {
 
   render() {
     return (
-      <table className="top-players">
-        <thead>
-          <tr>
-            <th className="top-players__rank">&nbsp;</th>
-            <th className="top-players__name">Name</th>
-            <th className="top-players__score">Score</th>
-          </tr>
-        </thead>
-        <tbody>
-        {this.state.topPlayers.map((player) => (
-          <RatingTableRow
-            key={player.rank}
-            player={player}
-            isHighlighted={player.id === this.state.playerId}
-          />
-        ))}
-        </tbody>
-      </table>
+      <div className="module">
+        <table className="rating-table">
+          <caption className="module__caption">Current Players</caption>
+          <tbody>
+          {this.state.topPlayers.map((player) => (
+            <RatingTableRow
+              key={player.rank}
+              player={player}
+              isHighlighted={player.id === this.state.playerId}
+            />
+          ))}
+          </tbody>
+        </table>
+      </div>
     );
   }
 

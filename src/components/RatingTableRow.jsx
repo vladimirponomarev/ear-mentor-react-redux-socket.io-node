@@ -18,7 +18,7 @@ const RatingTableRow = ({ player, isHighlighted }) => {
 
         {player.name}
       </td>
-      <td className="text-center">{player.score}</td>
+      <td className="text-center">{player.score} points</td>
     </tr>
   );
 };

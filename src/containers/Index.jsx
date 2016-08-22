@@ -27,7 +27,11 @@ class Index extends React.Component {
       return (<Game />);
     }
 
-    return (<Welcome />);
+    return (
+      <div className="container">
+        <Welcome />
+      </div>
+    );
   }
 
 }
