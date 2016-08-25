@@ -112,7 +112,7 @@ class Game extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-sm-12">
-              <p className="game__task">Select a correct interval between the notes you've just listened.</p>
+              <p className="game__task">Select the interval between the notes you've just listened.</p>
             </div>
           </div>
 

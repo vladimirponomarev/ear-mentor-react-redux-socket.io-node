@@ -6,6 +6,3 @@ node_modules
 db/*
 !db/.keep
 config/index.js
-shipitfile.js
-
-
