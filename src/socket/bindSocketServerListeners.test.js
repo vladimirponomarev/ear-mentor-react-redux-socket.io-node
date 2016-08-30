@@ -11,6 +11,7 @@ import * as musicalInstruments from '../constants/musicalInstruments';
 import * as musicalIntervals from '../constants/musicalIntervals';
 import * as musicalIntervalDirections from '../constants/musicalIntervalDirections';
 import * as musicalNotes from '../constants/musicalNotes';
+import * as periods from '../constants/periods';
 
 
 describe('Testing server socket listeners', () => {
@@ -160,7 +161,7 @@ describe('Testing server socket listeners', () => {
     });
   });
 
-  it("should get an increased score after giving a correct answer", (done) => {
+  it('should get an increased score after giving a correct answer', (done) => {
     const io = socketIoClient.connect(socketUrl);
     const instrument = musicalInstruments.BASS;
     const notes = musicalNotes.NOTES.map((note) => {
@@ -263,6 +264,64 @@ describe('Testing server socket listeners', () => {
     io.on('game_over', () => {
       // we should get into this event, so here will be this simple assert
       expect(1).toEqual(1);
+      io.disconnect();
+      done();
+    });
+  });
+
+  it("should get the rating for a month", (done) => {
+    const io = socketIoClient.connect(socketUrl);
+    const period = periods.MONTH;
+
+    io.emit('rating_request', period);
+
+    io.on('rating', (data) => {
+      expect(data.period).toEqual(period);
+      expect(data.rating).toBeAn(Array);
+
+      io.disconnect();
+      done();
+    });
+  });
+
+  it("should get the rating for a year", (done) => {
+    const io = socketIoClient.connect(socketUrl);
+    const period = periods.YEAR;
+
+    io.emit('rating_request', period);
+
+    io.on('rating', (data) => {
+      expect(data.period).toEqual(period);
+      expect(data.rating).toBeAn(Array);
+
+      io.disconnect();
+      done();
+    });
+  });
+
+  it('should get the all-time rating', (done) => {
+    const io = socketIoClient.connect(socketUrl);
+    const period = periods.ALL_TIME;
+
+    io.emit('rating_request', period);
+
+    io.on('rating', (data) => {
+      expect(data.period).toEqual(period);
+      expect(data.rating).toBeAn(Array);
+
+      io.disconnect();
+      done();
+    });
+  });
+
+  it('should get an error when requesting a rating for an incorrect period', (done) => {
+    const io = socketIoClient.connect(socketUrl);
+    const period = 'an-incorrect-period';
+
+    io.emit('rating_request', period);
+
+    io.on('bad_request', (payload) => {
+      expect(payload.toLowerCase()).toContain('invalid');
       io.disconnect();
       done();
     });

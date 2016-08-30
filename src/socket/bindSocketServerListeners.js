@@ -4,6 +4,8 @@ import calculateScorePoints from '../utils/calculateScorePoints';
 import generateMusicalInterval from '../utils/generateMusicalInterval';
 import config from '../../config';
 import * as musicalNotes from '../constants/musicalNotes';
+import * as periods from '../constants/periods';
+
 
 function getSounds(settings) {
   const sounds = [];
@@ -37,12 +39,12 @@ export default function (dependencies) {
   const io = dependencies.io;
   const db = dependencies.db;
   const players = [];
-  const rating = [];
-  const ratingEmitInterval = 1000;
+  const ratingOfCurrentPlayers = [];
+  const ratingEmitterInterval = 1000;
 
   function cleanUpFromPlayer(player) {
-    const playerInRating = rating.find(one => one.id === player.id);
-    rating.splice(rating.indexOf(playerInRating), 1);
+    const playerInRating = ratingOfCurrentPlayers.find(one => one.id === player.id);
+    ratingOfCurrentPlayers.splice(ratingOfCurrentPlayers.indexOf(playerInRating), 1);
 
     players.splice(players.indexOf(player), 1);
   }
@@ -66,9 +68,9 @@ export default function (dependencies) {
   }
 
   function processCorrectAnswer(player, socket) {
-    const playerInRating = rating.find(one => one.id === player.id);
+    const playerInRating = ratingOfCurrentPlayers.find(one => one.id === player.id);
     if (!playerInRating) {
-      rating.push({
+      ratingOfCurrentPlayers.push({
         id: player.id,
         name: player.settings.name,
         country: player.settings.country,
@@ -82,8 +84,8 @@ export default function (dependencies) {
   }
 
   setInterval(() => {
-    io.sockets.emit('rating', rating);
-  }, ratingEmitInterval);
+    io.sockets.emit('current_players', ratingOfCurrentPlayers);
+  }, ratingEmitterInterval);
 
   io.sockets.on('connection', (socket) => {
     socket.on('game_start', (settings) => {
@@ -147,6 +149,45 @@ export default function (dependencies) {
       };
 
       return socket.emit('question', payload);
+    });
+
+
+    socket.on('rating_request', (period) => {
+      if (!Object.keys(periods).some(key => periods[key] === period)) {
+        return socket.emit('bad_request', 'Invalid action.');
+      }
+
+      let startDate;
+      switch (period) {
+        case periods.MONTH:
+          startDate = '-1 month';
+          break;
+        case periods.YEAR:
+        default:
+          startDate = '-1 year';
+      }
+
+
+      return db.parallelize(() => {
+        const query = `SELECT * FROM players
+                       WHERE updatedAt BETWEEN datetime('now', ?)
+                         AND datetime('now', 'localtime')
+                       ORDER BY score DESC
+                       LIMIT 50`;
+
+        db.all(query, startDate, (err, rows) => {
+          const ratingForPeriod = rows.map(row => ({
+            date: row.updatedAt,
+            score: row.score,
+            name: row.name
+          }));
+
+          return socket.emit('rating', {
+            period,
+            rating: ratingForPeriod
+          });
+        });
+      });
     });
 
     socket.on('answer', (payload) => {

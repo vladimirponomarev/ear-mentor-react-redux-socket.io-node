@@ -390,18 +390,21 @@ for i in (1..$steps)
   font-size: 18px
   font-weight: normal
 
+/* ============ */
+/* === Tabs === */
+/* ============ */
+.tabs__btn
+  border: 0;
+  border-top: 2px solid $colorWhite
+  background: $colorWhite
+  padding: 8px 20px
+
+.tabs__btn--active
+  border-top: 2px solid $colorPrimary
+
 /* ==================== */
 /* === Rating Table === */
 /* ==================== */
-.rating-table__caption
-  border-bottom: 1px solid $colorBlack
-  color: $colorBlack
-  font-size: 16px
-  font-weight: 700
-  text-transform: uppercase
-  margin: 0
-  padding: 0 0 12px 0
-
 .rating-table {
   border: 0
   font-size: 13px
@@ -419,20 +422,12 @@ for i in (1..$steps)
   }
 
   td {
-    padding: 16px 8px 0px
+    padding: 8px 8px
   }
 }
 
-.top-players__rank
-  width: 15%
-
-.top-players__name
-  width: 55%
-
-.top-players__score
-  width: 30%
-  text-align: center
-
+.rating-table__row--highlighted
+  background-color: $colorPrimaryVeryLight
 
 /* ============== */
 /* === Footer === */

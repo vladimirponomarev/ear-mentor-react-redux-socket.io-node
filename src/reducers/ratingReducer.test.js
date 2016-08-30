@@ -4,9 +4,10 @@ import ratingReducer from './ratingReducer';
 import * as ratingActions from '../actions/ratingActions';
 
 
-describe('Settings Reducer', () => {
+describe('Rating Reducer', () => {
   const initialState = {
-    players: []
+    currentPlayers: [],
+    rating: []
   };
 
   it('should set players sorted by score', () => {
@@ -15,10 +16,23 @@ describe('Settings Reducer', () => {
       { id: 2, name: 'Jane Doe', country: 'UK', score: 1000 }
     ];
 
-    const action = ratingActions.updateRating(players);
+    const action = ratingActions.updateCurrentPlayers(players);
     const finalState = ratingReducer(initialState, action);
 
-    expect(finalState.players[0].score).toEqual(1000);
-    expect(finalState.players[1].score).toEqual(200);
+    expect(finalState.currentPlayers[0].score).toEqual(1000);
+    expect(finalState.currentPlayers[1].score).toEqual(200);
+  });
+
+  it('should set a rating for a some period', () => {
+    const rating = [
+      { date: new Date(), name: 'Jane Doe', country: 'UK', score: 1000 },
+      { date: new Date(), name: 'John Doe', country: 'RU', score: 200 }
+    ];
+
+    const action = ratingActions.setRating(rating);
+    const finalState = ratingReducer(initialState, action);
+
+    expect(finalState.rating[0].score).toEqual(1000);
+    expect(finalState.rating[1].score).toEqual(200);
   });
 });

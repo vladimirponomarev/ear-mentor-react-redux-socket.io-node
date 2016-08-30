@@ -1,6 +1,9 @@
 import React, { PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import RatingTableRow from '../components/RatingTableRow.jsx';
+import classNames from 'classnames';
+import * as ratingActions from '../actions/ratingActions';
+import * as periods from '../constants/periods';
 
 
 class Rating extends React.Component {
@@ -9,85 +12,126 @@ class Rating extends React.Component {
     super(props);
 
     this.state = {
-      topPlayers: [],
-      playerId: props.game.playerId
+      currentPlayers: [],
+      ratingForPeriod: [],
+      period: periods.NOW
     };
+
+    this.changePeriod = this.changePeriod.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.rating) {
-      this.setState({
-        topPlayers: this.getTopPlayers(nextProps.rating.players)
-      });
+  changePeriod(event) {
+    event.preventDefault();
+
+    const period = event.target.value;
+    if (this.state.period === period) {
+      return;
     }
 
-    if (this.state.playerId === null && nextProps.game.playerId) {
-      this.setState({
-        playerId: nextProps.game.playerId
-      });
+    if (period !== periods.NOW) {
+      this.props.ratingActions.requestRating(period);
     }
+
+    this.setState({
+      period
+    });
   }
 
-  getTopPlayers(players, count = 1) {
-    const sortedPlayers = players.sort((playerA, playerB) => playerB.score - playerA.score);
-    const topPlayers = [];
-    let isPlayerInList = false;
-
-    for (let i = 0; i < sortedPlayers.length; i++) {
-      if (!isPlayerInList && sortedPlayers[i].id === this.state.playerId) {
-        isPlayerInList = true;
-      }
-
-      if (isPlayerInList || i < count) {
-        topPlayers.push({
-          rank: i + 1,
-          id: sortedPlayers[i].id,
-          name: sortedPlayers[i].name,
-          country: sortedPlayers[i].country,
-          score: sortedPlayers[i].score
-        });
-      }
-
-      if (isPlayerInList && i >= count) {
-        break;
-      }
-    }
-
-    return topPlayers;
-  }
 
   render() {
+    const btnPeriodNow = classNames({
+      tabs__btn: true,
+      'tabs__btn--active': this.state.period === periods.NOW
+    });
+    const btnPeriodMonth = classNames({
+      tabs__btn: true,
+      'tabs__btn--active': this.state.period === periods.MONTH
+    });
+    const btnPeriodYear = classNames({
+      tabs__btn: true,
+      'tabs__btn--active': this.state.period === periods.YEAR
+    });
+    const btnPeriodAllTime = classNames({
+      tabs__btn: true,
+      'tabs__btn--active': this.state.period === periods.ALL_TIME
+    });
+
+    const tabContentCurrentPlayersStyle = {
+      display: this.state.period === periods.NOW ? 'block' : 'none'
+    };
+
+    const tabContentRatingForPeriodStyle = {
+      display: this.state.period !== periods.NOW ? 'block' : 'none'
+    };
+
+
     return (
-      <div className="module">
-        <table className="rating-table">
-          <caption className="module__caption">Current Players</caption>
-          <tbody>
-          {this.state.topPlayers.map((player) => (
-            <RatingTableRow
-              key={player.rank}
-              player={player}
-              isHighlighted={player.id === this.state.playerId}
-            />
-          ))}
-          </tbody>
-        </table>
+      <div className="container">
+        <div className="tabs">
+          <button
+            className={btnPeriodNow}
+            onClick={this.changePeriod}
+            value={periods.NOW}
+          >
+            Now
+          </button>
+
+          <button
+            className={btnPeriodMonth}
+            onClick={this.changePeriod}
+            value={periods.MONTH}
+          >
+            Month
+          </button>
+
+          <button
+            className={btnPeriodYear}
+            onClick={this.changePeriod}
+            value={periods.YEAR}
+          >
+            Year
+          </button>
+
+          <button
+            className={btnPeriodAllTime}
+            onClick={this.changePeriod}
+            value={periods.ALL_TIME}
+          >
+            All Time
+          </button>
+        </div>
+
+        <div className="tabs__content">
+          <div style={tabContentCurrentPlayersStyle} className="tabs__content-item">
+            {this.state.currentPlayers.length}
+          </div>
+          <div style={tabContentRatingForPeriodStyle} className="tabs__content-item">
+            {this.state.ratingForPeriod.length}
+          </div>
+        </div>
       </div>
     );
   }
 
 }
 
+Rating.propTypes = {
+  ratingActions: PropTypes.object.isRequired,
+  rating: PropTypes.object.isRequired
+};
+
 
 function mapStateToProps(state) {
   return {
-    rating: state.rating,
-    game: state.game
+    rating: state.rating
   };
 }
 
-Rating.propTypes = {
-  rating: PropTypes.object.isRequired,
-  game: PropTypes.object.isRequired
-};
+function mapDispatchToProps(dispatch) {
+  return {
+    ratingActions: bindActionCreators(ratingActions, dispatch),
+  };
+}
 
-export default connect(mapStateToProps)(Rating);
+export default connect(mapStateToProps, mapDispatchToProps)(Rating);
+

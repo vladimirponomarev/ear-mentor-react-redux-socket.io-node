@@ -4,8 +4,8 @@ import classNames from 'classnames';
 
 const RatingTableRow = ({ player, isHighlighted }) => {
   const rowClassName = classNames({
-    'top-players__row': true,
-    'top-players__row--highlighted': isHighlighted
+    'rating-table__row': true,
+    'rating-table__row--highlighted': isHighlighted
   });
 
   const countryClassName = `flag-icon flag-icon-${player.country.toLowerCase()}`;

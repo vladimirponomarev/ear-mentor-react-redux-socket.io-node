@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import GameForm from '../components/GameForm.jsx';
-import Rating from '../containers/Rating.jsx';
+import CurrentPlayers from './CurrentPlayers.jsx';
 import AudioWidget from '../components/AudioWidget.jsx';
 import AudioManager from '../utils/AudioManager';
 import GameOverModal from '../components/GameOverModal.jsx';
@@ -125,7 +125,7 @@ class Game extends React.Component {
               />
             </div>
             <div className="col-sm-12 col-md-5 col-lg-4">
-              <Rating />
+              <CurrentPlayers />
 
               <AudioWidget onRepeatButtonClick={this.repeatQuestion} />
             </div>

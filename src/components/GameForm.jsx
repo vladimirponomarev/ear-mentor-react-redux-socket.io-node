@@ -76,8 +76,8 @@ const GameForm = ({
 
   return (
     <div className="game">
-      <fieldset style={ascIntervalSelectionStyle} className="module">
-        <legend className="module__caption">Ascending</legend>
+      <fieldset className="module">
+        <legend className="module__caption">Intervals</legend>
 
         <div className="module__content">
           <div className="row">
@@ -96,8 +96,6 @@ const GameForm = ({
         <legend className="module__caption">Descending</legend>
 
         <div className="module__content">
-          <h2 className="interval-selection__heading">Descending</h2>
-
           <div className="row">
             {descMusicalIntervals.map((interval, index) => (
               <MusicalIntervalSelector
