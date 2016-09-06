@@ -125,9 +125,9 @@ class Game extends React.Component {
               />
             </div>
             <div className="col-sm-12 col-md-5 col-lg-4">
-              <CurrentPlayers />
-
               <AudioWidget onRepeatButtonClick={this.repeatQuestion} />
+
+              <CurrentPlayers />
             </div>
 
             <GameOverModal

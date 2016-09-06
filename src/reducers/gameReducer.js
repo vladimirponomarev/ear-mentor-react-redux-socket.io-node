@@ -15,7 +15,7 @@ export default function gameReducer(state = initialState, action) {
 
     case actionTypes.START_GAME:
       return Object.assign({}, state,
-        { hasPlayerLost: false });
+        { hasPlayerLost: false, score: 0 });
 
     case actionTypes.SET_PLAYER_ID:
       return Object.assign({}, state,

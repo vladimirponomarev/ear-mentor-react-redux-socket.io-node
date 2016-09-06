@@ -60,7 +60,7 @@ describe('Testing server socket listeners', () => {
     });
   });
 
-  it('should get game data when a game start confirmed', (done) => {
+  it('should get the game data when a game start confirmed', (done) => {
     const io = socketIoClient.connect(socketUrl);
     io.emit('game_start', {
       directions: [musicalIntervalDirections.ASC, musicalIntervalDirections.DESC],
@@ -276,8 +276,7 @@ describe('Testing server socket listeners', () => {
     io.emit('rating_request', period);
 
     io.on('rating', (data) => {
-      expect(data.period).toEqual(period);
-      expect(data.rating).toBeAn(Array);
+      expect(data).toBeAn(Array);
 
       io.disconnect();
       done();
@@ -291,8 +290,7 @@ describe('Testing server socket listeners', () => {
     io.emit('rating_request', period);
 
     io.on('rating', (data) => {
-      expect(data.period).toEqual(period);
-      expect(data.rating).toBeAn(Array);
+      expect(data).toBeAn(Array);
 
       io.disconnect();
       done();
@@ -306,8 +304,7 @@ describe('Testing server socket listeners', () => {
     io.emit('rating_request', period);
 
     io.on('rating', (data) => {
-      expect(data.period).toEqual(period);
-      expect(data.rating).toBeAn(Array);
+      expect(data).toBeAn(Array);
 
       io.disconnect();
       done();

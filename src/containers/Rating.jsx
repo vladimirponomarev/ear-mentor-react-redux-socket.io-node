@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
+import RatingTabsBlock from '../components/RatingTabsBlock.jsx';
 import * as ratingActions from '../actions/ratingActions';
 import * as periods from '../constants/periods';
 
@@ -18,6 +18,12 @@ class Rating extends React.Component {
     };
 
     this.changePeriod = this.changePeriod.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      ratingForPeriod: nextProps.rating.rating
+    });
   }
 
   changePeriod(event) {
@@ -39,77 +45,13 @@ class Rating extends React.Component {
 
 
   render() {
-    const btnPeriodNow = classNames({
-      tabs__btn: true,
-      'tabs__btn--active': this.state.period === periods.NOW
-    });
-    const btnPeriodMonth = classNames({
-      tabs__btn: true,
-      'tabs__btn--active': this.state.period === periods.MONTH
-    });
-    const btnPeriodYear = classNames({
-      tabs__btn: true,
-      'tabs__btn--active': this.state.period === periods.YEAR
-    });
-    const btnPeriodAllTime = classNames({
-      tabs__btn: true,
-      'tabs__btn--active': this.state.period === periods.ALL_TIME
-    });
-
-    const tabContentCurrentPlayersStyle = {
-      display: this.state.period === periods.NOW ? 'block' : 'none'
-    };
-
-    const tabContentRatingForPeriodStyle = {
-      display: this.state.period !== periods.NOW ? 'block' : 'none'
-    };
-
-
     return (
-      <div className="container">
-        <div className="tabs">
-          <button
-            className={btnPeriodNow}
-            onClick={this.changePeriod}
-            value={periods.NOW}
-          >
-            Now
-          </button>
-
-          <button
-            className={btnPeriodMonth}
-            onClick={this.changePeriod}
-            value={periods.MONTH}
-          >
-            Month
-          </button>
-
-          <button
-            className={btnPeriodYear}
-            onClick={this.changePeriod}
-            value={periods.YEAR}
-          >
-            Year
-          </button>
-
-          <button
-            className={btnPeriodAllTime}
-            onClick={this.changePeriod}
-            value={periods.ALL_TIME}
-          >
-            All Time
-          </button>
-        </div>
-
-        <div className="tabs__content">
-          <div style={tabContentCurrentPlayersStyle} className="tabs__content-item">
-            {this.state.currentPlayers.length}
-          </div>
-          <div style={tabContentRatingForPeriodStyle} className="tabs__content-item">
-            {this.state.ratingForPeriod.length}
-          </div>
-        </div>
-      </div>
+      <RatingTabsBlock
+        currentPlayers={this.state.currentPlayers}
+        ratingForPeriod={this.state.ratingForPeriod}
+        period={this.state.period}
+        onChangePeriod={this.changePeriod}
+      />
     );
   }
 

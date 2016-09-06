@@ -383,7 +383,7 @@ const SettingsForm = ({
         <div className="row">
           <div className="col-sm-12 col-md-6">
             <button
-              className="btn btn-block btn-shadow btn-lg btn-primary"
+              className="btn btn--primary btn--block btn--shadow btn--lg"
               type="submit"
             >
               Start

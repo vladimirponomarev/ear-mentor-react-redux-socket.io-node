@@ -3,7 +3,8 @@ import * as actionTypes from '../constants/actionTypes';
 
 const initialState = {
   currentPlayers: [],
-  rating: []
+  rating: [],
+  currentPlayersUpdatedAt: 0
 };
 
 export default function ratingReducer(state = initialState, action) {

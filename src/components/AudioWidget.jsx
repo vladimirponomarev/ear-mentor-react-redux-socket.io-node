@@ -11,7 +11,7 @@ const AudioWidget = ({
       <div className="row">
         <div className="col-sm-4 col-lg-8">&nbsp;</div>
         <div className="col-sm-8 col-lg-4 text-right">
-          <button onClick={onRepeatButtonClick} className="btn btn-shadow btn-primary">
+          <button onClick={onRepeatButtonClick} className="btn btn--primary btn--shadow">
             Repeat
           </button>
         </div>

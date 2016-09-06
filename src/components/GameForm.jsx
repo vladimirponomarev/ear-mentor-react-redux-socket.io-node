@@ -23,9 +23,9 @@ const GameForm = ({
   const commonButtonClassNames = {
     'btn': true, // eslint-disable-line quote-props
     'btn--bottom-offset': true,
-    'btn-block': true,
-    'btn-shadow': true,
-    'btn-primary': true
+    'btn--block': true,
+    'btn--shadow': true,
+    'btn--primary': true
   };
 
   Object.keys(musicalIntervals).forEach((key) => {
@@ -34,7 +34,7 @@ const GameForm = ({
       'hidden-xs': hasNotBeenChosen,
       'hidden-sm': hasNotBeenChosen
     });
-    const musicalinterval = {
+    const musicalInterval = {
       name: musicalIntervalNames[key].short,
       columnClassNames
     };
@@ -44,22 +44,22 @@ const GameForm = ({
     const isIntervalInDescIncorrect = incorrectAnswers.includes(String(-value));
 
     if (hasAscDirection) {
-      ascMusicalIntervals.push(Object.assign({}, musicalinterval, {
+      ascMusicalIntervals.push(Object.assign({}, musicalInterval, {
         value,
         direction: musicalIntervalDirections.ASC,
         buttonClassNames: Object.assign({}, commonButtonClassNames, {
-          'btn--incorrect': isIntervalInAscIncorrect
+          'btn--error': isIntervalInAscIncorrect
         }),
         isDisabled: hasNotBeenChosen || isIntervalInAscIncorrect
       }));
     }
 
     if (hasDescDirection) {
-      descMusicalIntervals.push(Object.assign({}, musicalinterval, {
+      descMusicalIntervals.push(Object.assign({}, musicalInterval, {
         value: -value,
         direction: musicalIntervalDirections.DESC,
         buttonClassNames: Object.assign({}, commonButtonClassNames, {
-          'btn--incorrect': isIntervalInDescIncorrect
+          'btn--error': isIntervalInDescIncorrect
         }),
         isDisabled: hasNotBeenChosen || isIntervalInDescIncorrect
       }));
@@ -73,6 +73,9 @@ const GameForm = ({
   const descIntervalSelectionStyle = {
     display: hasDescDirection ? 'block' : 'none'
   };
+  const separatorStyle = {
+    display: hasDescDirection && hasDescDirection ? 'block' : 'none'
+  };
 
   return (
     <div className="game">
@@ -80,31 +83,48 @@ const GameForm = ({
         <legend className="module__caption">Intervals</legend>
 
         <div className="module__content">
-          <div className="row">
-            {ascMusicalIntervals.map((interval, index) => (
-              <MusicalIntervalSelector
-                key={index}
-                onClick={onMusicalIntervalClick}
-                musicalInterval={interval}
-              />)
-            )}
-          </div>
-        </div>
-      </fieldset>
 
-      <fieldset style={descIntervalSelectionStyle} className="module">
-        <legend className="module__caption">Descending</legend>
-
-        <div className="module__content">
-          <div className="row">
-            {descMusicalIntervals.map((interval, index) => (
-              <MusicalIntervalSelector
-                key={index}
-                onClick={onMusicalIntervalClick}
-                musicalInterval={interval}
-              />)
-            )}
+          <div style={ascIntervalSelectionStyle} className="row">
+            <div className="hidden-xs hidden-sm col-md-1 text-center">
+              <span className="direction-mark-character">A</span>
+              <span className="direction-mark-character">S</span>
+              <span className="direction-mark-character">C</span>
+            </div>
+            <div className="col-sm-12 col-md-11">
+              <div className="row">
+                {ascMusicalIntervals.map((interval, index) => (
+                  <MusicalIntervalSelector
+                    key={index}
+                    onClick={onMusicalIntervalClick}
+                    musicalInterval={interval}
+                  />)
+                )}
+              </div>
+            </div>
           </div>
+
+          <div style={separatorStyle} className="interval-direction-separator"></div>
+
+          <div style={descIntervalSelectionStyle} className="row">
+            <div className="hidden-xs hidden-sm col-md-1 text-center">
+              <span className="direction-mark-character">D</span>
+              <span className="direction-mark-character">E</span>
+              <span className="direction-mark-character">S</span>
+              <span className="direction-mark-character">C</span>
+            </div>
+            <div className="col-sm-12 col-md-11">
+              <div className="row">
+                {descMusicalIntervals.map((interval, index) => (
+                  <MusicalIntervalSelector
+                    key={index}
+                    onClick={onMusicalIntervalClick}
+                    musicalInterval={interval}
+                  />)
+                )}
+              </div>
+            </div>
+          </div>
+
         </div>
       </fieldset>
     </div>

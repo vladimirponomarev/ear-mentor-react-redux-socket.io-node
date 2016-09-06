@@ -41,6 +41,7 @@ export default function (dependencies) {
   const players = [];
   const ratingOfCurrentPlayers = [];
   const ratingEmitterInterval = 1000;
+  const maxTryCount = 2;
 
   function cleanUpFromPlayer(player) {
     const playerInRating = ratingOfCurrentPlayers.find(one => one.id === player.id);
@@ -50,8 +51,6 @@ export default function (dependencies) {
   }
 
   function processIncorrectAnswer(player, socket) {
-    const maxTryCount = 2;
-
     if (player.question.tryCount === maxTryCount) {
       return db.parallelize(() => {
         const query = "UPDATE players SET score = ?, updatedAt = datetime('now') WHERE id = ?";
@@ -88,6 +87,25 @@ export default function (dependencies) {
   }, ratingEmitterInterval);
 
   io.sockets.on('connection', (socket) => {
+
+    socket.once('disconnect', () => {
+      const player = players.find(one => one.socketId === socket.id);
+      if (!player) {
+        return socket.disconnect();
+      }
+
+      const query = "UPDATE players SET score = ?, updatedAt = datetime('now') WHERE id = ?";
+      const stml = db.prepare(query);
+
+      return db.parallelize(() => {
+        stml.run([player.score, player.id], () => {
+          cleanUpFromPlayer(player);
+
+          socket.disconnect();
+        });
+      });
+    });
+
     socket.on('game_start', (settings) => {
       const validationResult = isSettingsDataValid(settings);
       if (!validationResult.isValid) {
@@ -95,8 +113,9 @@ export default function (dependencies) {
       }
 
       return db.parallelize(() => {
-        const stml = db.prepare("INSERT INTO players (name) VALUES (?)");
-        stml.run(settings.name, () => {
+        const query = 'INSERT INTO players (name, country) VALUES (?, ?)';
+        const stml = db.prepare(query);
+        stml.run([settings.name, settings.country], () => {
           const playerData = {
             socketId: socket.id,
             id: stml.lastID,
@@ -172,20 +191,21 @@ export default function (dependencies) {
         const query = `SELECT * FROM players
                        WHERE updatedAt BETWEEN datetime('now', ?)
                          AND datetime('now', 'localtime')
+                         AND score > 0
                        ORDER BY score DESC
                        LIMIT 50`;
 
         db.all(query, startDate, (err, rows) => {
-          const ratingForPeriod = rows.map(row => ({
+          const ratingForPeriod = rows.map((row, index) => ({
+
+            rank: index + 1,
+            name: row.name,
+            country: row.country,
             date: row.updatedAt,
-            score: row.score,
-            name: row.name
+            score: row.score
           }));
 
-          return socket.emit('rating', {
-            period,
-            rating: ratingForPeriod
-          });
+          return socket.emit('rating', ratingForPeriod);
         });
       });
     });
@@ -199,7 +219,7 @@ export default function (dependencies) {
       const answer = player.question.question + parseInt(payload, 10);
       const isAnswerCorrect = player.question.answer === answer;
 
-      if (isAnswerCorrect) {
+      if (isAnswerCorrect && player.question.tryCount === 0) {
         player.score += calculateScorePoints(player.settings);
         player.question.hasAnswered = true;
         return processCorrectAnswer(player, socket);

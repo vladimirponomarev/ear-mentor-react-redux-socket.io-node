@@ -33,8 +33,8 @@ export default function (dependencies) {
     store.dispatch(gameActions.requestQuestion());
   });
 
-  io.on('rating_of_current_players', (players) => {
-    store.dispatch(ratingActions.updateRating(players));
+  io.on('current_players', (players) => {
+    store.dispatch(ratingActions.updateCurrentPlayers(players));
   });
   io.on('rating', rating => store.dispatch(ratingActions.setRating(rating)));
 

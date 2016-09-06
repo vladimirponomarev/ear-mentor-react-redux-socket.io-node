@@ -88,7 +88,67 @@ for i in (1..$steps)
       $nextdeg = -90deg + ($increment * (i - $half))
       background-image: linear-gradient($nextdeg, $colorPrimary 50%, transparent 50%, transparent),  linear-gradient(270deg, $colorPrimary 50%, $colorPrimaryVeryLight 50%, $colorPrimaryVeryLight)
 
-/*
+
+/* ============== */
+/* === Button === */
+/* ============== */
+.btn {
+  border-radius: 4px
+  line-height: 34px
+  padding: 0 16px
+  margin: 0
+  transition .4s background-color
+}
+
+.btn--primary {
+  background-color: $colorPrimary
+  border-color: $colorPrimary
+  color: $colorWhite
+
+  &:hover, &:active, &:active:focus, &:focus {
+    color: $colorWhite
+    background-color: $colorPrimaryHover
+    border-color: $colorPrimaryHover
+  }
+}
+
+.btn--secondary {
+  background-color: $colorSecondary
+  border-color: $colorSecondary
+  color: $colorBlack
+
+  &:hover, &:active, &:active:focus, &:focus {
+    background-color: $colorSecondaryHover
+    border-color: $colorSecondaryHover
+  }
+}
+
+.btn--bottom-offset
+  margin-bottom: 12px
+
+.btn--error {
+  background-color: $colorRed
+  border-color: $colorRed
+
+  &:hover, &:focus, &:active,
+  &[disabled]:hover, &[disabled]:focus, &[disabled]:active {
+    background-color: $colorRed
+    border-color: $colorRed
+  }
+}
+
+.btn--shadow
+  box-shadow: inset 0 -4px 0 0 rgba(50,50,50, .3)
+
+.btn--lg
+  line-height: 50px
+  text-transform: uppercase
+  letter-spacing: 1.2px
+
+.btn--block
+  display: block
+  width: 100%
+
 /* =============== */
 /* === Spinner === */
 /* =============== */
@@ -116,61 +176,6 @@ for i in (1..$steps)
   border-radius: 4px
   font-size: 16px
   height: auto;
-
-.btn {
-  border-radius: 4px
-  line-height: 34px
-  padding: 0 16px
-  margin: 0
-  transition .4s background-color
-}
-
-.btn--bottom-offset
-  margin-bottom: 12px
-
-.btn--incorrect {
-  background-color: $colorRed
-  border-color: $colorRed
-
-  &:hover, &:focus, &:active,
-  &[disabled]:hover, &[disabled]:focus, &[disabled]:active {
-    background-color: $colorRed
-    border-color: $colorRed
-  }
-}
-
-
-
-.btn-shadow
-  box-shadow: inset 0 -4px 0 0 rgba(50,50,50, .3)
-
-.btn-lg {
-  line-height: 50px
-  text-transform: uppercase
-  letter-spacing: 1.2px
-}
-
-.btn-primary {
-  background-color: $colorPrimary
-  border-color: $colorPrimary
-  color: $colorWhite
-
-  &:hover, &:active, &:active:focus, &:focus {
-    background-color: $colorPrimaryHover
-    border-color: $colorPrimaryHover
-  }
-}
-
-.btn-secondary {
-  background-color: $colorSecondary
-  border-color: $colorSecondary
-  color: $colorBlack
-
-  &:hover, &:active, &:active:focus, &:focus {
-    background-color: $colorSecondaryHover
-    border-color: $colorSecondaryHover
-  }
-}
 
 
 .form__fieldset + .form__fieldset
@@ -304,6 +309,7 @@ for i in (1..$steps)
   font-weight: 700
   text-transform: uppercase
   margin: 0
+  line-height: 1.5
   padding: 0 0 12px 0
 
 .module__content
@@ -325,7 +331,6 @@ for i in (1..$steps)
   margin: 0 0 32px;
 
 
-
 .interval-selection {
   & .btn {
     margin-bottom: 12px;
@@ -339,7 +344,19 @@ for i in (1..$steps)
   text-align: center
   margin: 0 0 18px 0
 
+.direction-mark-character
+  display: block
+  line-height: 1.1
+  font-weight: 600
+  font-size: 20px
+  text-align: center
+  color: $colorGrey
 
+.interval-direction-separator
+  background: $colorGreyLight
+  width: 30%
+  height: 3px
+  margin: 12px auto 24px
 
 /* ===================== */
 /* === Audio Manager === */
@@ -393,14 +410,29 @@ for i in (1..$steps)
 /* ============ */
 /* === Tabs === */
 /* ============ */
+.tabs
+  border-bottom: 1px solid $colorGreyLight
+
 .tabs__btn
   border: 0;
   border-top: 2px solid $colorWhite
-  background: $colorWhite
+  border-right: 1px solid $backgroundColor
+  border-bottom: 1px solid $colorGreyLight
+  border-left: 1px solid $backgroundColor
+  background: $backgroundColor
   padding: 8px 20px
+  margin-bottom: -1px
 
 .tabs__btn--active
   border-top: 2px solid $colorPrimary
+  border-right: 1px solid $colorGreyLight
+  border-bottom: 1px solid $backgroundColor
+  border-left: 1px solid $colorGreyLight
+  border-radius: 4px 0 0 0
+  cursor: default
+
+.tabs__content
+  margin-top: 24px
 
 /* ==================== */
 /* === Rating Table === */

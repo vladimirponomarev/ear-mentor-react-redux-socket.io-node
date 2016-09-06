@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import RatingTableRow from '../components/RatingTableRow.jsx';
+import RatingTable from '../components/RatingTable.jsx';
 
 
 class CurrentPlayers extends React.Component {
@@ -15,11 +15,9 @@ class CurrentPlayers extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.rating) {
-      this.setState({
-        topPlayers: this.getTopPlayers(nextProps.rating.players)
-      });
-    }
+    this.setState({
+      topPlayers: this.getTopPlayers(nextProps.rating.currentPlayers)
+    });
 
     if (this.state.playerId === null && nextProps.game.playerId) {
       this.setState({
@@ -28,7 +26,7 @@ class CurrentPlayers extends React.Component {
     }
   }
 
-  getTopPlayers(players, count = 1) {
+  getTopPlayers(players, limit = 10) {
     const sortedPlayers = players.sort((playerA, playerB) => playerB.score - playerA.score);
     const topPlayers = [];
     let isPlayerInList = false;
@@ -38,7 +36,7 @@ class CurrentPlayers extends React.Component {
         isPlayerInList = true;
       }
 
-      if (isPlayerInList || i < count) {
+      if (isPlayerInList || i < limit) {
         topPlayers.push({
           rank: i + 1,
           id: sortedPlayers[i].id,
@@ -48,7 +46,7 @@ class CurrentPlayers extends React.Component {
         });
       }
 
-      if (isPlayerInList && i >= count) {
+      if (isPlayerInList && i >= limit) {
         break;
       }
     }
@@ -59,18 +57,11 @@ class CurrentPlayers extends React.Component {
   render() {
     return (
       <div className="module">
-        <table className="rating-table">
-          <caption className="module__caption">Current Players</caption>
-          <tbody>
-          {this.state.topPlayers.map((player) => (
-            <RatingTableRow
-              key={player.rank}
-              player={player}
-              isHighlighted={player.id === this.state.playerId}
-            />
-          ))}
-          </tbody>
-        </table>
+        <h2 className="module__caption">Current Players</h2>
+
+        <div className="module__content">
+          <RatingTable players={this.state.topPlayers} playerId={this.state.playerId} />
+        </div>
       </div>
     );
   }
