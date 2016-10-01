@@ -1,10 +1,5 @@
 {
   "presets": ["es2015", "es2016", "react"],
-  "plugins": ["array-includes"],
-  "env": {
-    "development": {
-      "presets": ["react-hmre"]
-    }
-  }
+  "plugins": ["array-includes", "react-hot-loader/babel"]
 }
 

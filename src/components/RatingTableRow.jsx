@@ -18,14 +18,18 @@ const RatingTableRow = ({ player, isHighlighted }) => {
 
   return (
     <tr className={rowClassName}>
-      <td className="text-center">{player.rank}</td>
-      <td>
+      <td className="rating-table__column rating-table__column--rank text-center">
+        {player.rank}
+      </td>
+      <td className="rating-table__column rating-table__column--name">
         <span className={countryClassName} />
 
         {player.name}
       </td>
-      <td className="text-center">{player.score} points</td>
-      <td>{date}</td>
+      <td className="rating-table__column rating-table__column--score text-center">
+        {player.score} points
+      </td>
+      <td className="rating-table__column rating-table__column--date">{date}</td>
     </tr>
   );
 };

@@ -5,12 +5,10 @@ export default {
   debug: true,
   devtool: 'cheap-module-eval-source-map',
   noInfo: false,
-  target: 'web',
-  devServer: {
-    contentBase: './src'
-  },
   entry: [
-    'webpack-hot-middleware/client?reload=true',
+    'webpack-hot-middleware/client',
+    'webpack/hot/only-dev-server',
+    'react-hot-loader/patch',
     './src/client.jsx'
   ],
   output: {
@@ -27,7 +25,7 @@ export default {
       {
         test: /\.jsx?$/,
         include: path.join(__dirname, '../src'),
-        loader: 'babel'
+        loaders: ['babel']
       },
       {
         test: /\.json$/,

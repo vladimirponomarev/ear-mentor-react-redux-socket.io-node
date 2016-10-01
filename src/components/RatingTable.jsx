@@ -5,9 +5,9 @@ import RatingTableRow from './RatingTableRow.jsx';
 const RatingTable = ({ players, playerId }) => (
   <table className="rating-table">
     <tbody>
-    {players.map((player) => (
-      <RatingTableRow key={player.rank} player={player} isHighlighted={playerId === player.id} />
-    ))}
+      {players.map(player => (
+        <RatingTableRow key={player.rank} player={player} isHighlighted={player.id === playerId} />
+      ))}
     </tbody>
   </table>
 );

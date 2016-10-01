@@ -6,19 +6,19 @@ import * as periods from '../constants/periods';
 
 const RatingTabsBlock = ({ currentPlayers, ratingForPeriod, period, onChangePeriod }) => {
   const btnPeriodNow = classNames({
-    tabs__btn: true,
+    'tabs__btn': true,
     'tabs__btn--active': period === periods.NOW
   });
   const btnPeriodMonth = classNames({
-    tabs__btn: true,
+    'tabs__btn': true,
     'tabs__btn--active': period === periods.MONTH
   });
   const btnPeriodYear = classNames({
-    tabs__btn: true,
+    'tabs__btn': true,
     'tabs__btn--active': period === periods.YEAR
   });
   const btnPeriodAllTime = classNames({
-    tabs__btn: true,
+    'tabs__btn': true,
     'tabs__btn--active': period === periods.ALL_TIME
   });
 
@@ -32,7 +32,7 @@ const RatingTabsBlock = ({ currentPlayers, ratingForPeriod, period, onChangePeri
 
 
   return (
-    <div className="container">
+    <div className="container content">
       <div className="tabs">
         <button
           className={btnPeriodNow}
@@ -71,8 +71,11 @@ const RatingTabsBlock = ({ currentPlayers, ratingForPeriod, period, onChangePeri
         <div className="row">
           <div className="col-sm-12 col-md-6 col-md-offset-3">
             <div style={tabContentCurrentPlayersStyle} className="tabs__content-item">
-              <p>At the moment no one is playing. Start a game.</p>
-              <p>Current players.</p>
+
+              {currentPlayers.length === 0 && <p>At the moment no one is playing.</p>}
+
+              {currentPlayers.length > 0 && <p>Current players.</p>}
+
 
               <RatingTable players={currentPlayers} playerId={0} />
             </div>

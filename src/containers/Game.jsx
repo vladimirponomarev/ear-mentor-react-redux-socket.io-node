@@ -1,88 +1,110 @@
 import React, { PropTypes } from 'react';
+import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import GameForm from '../components/GameForm.jsx';
 import CurrentPlayers from './CurrentPlayers.jsx';
-import AudioWidget from '../components/AudioWidget.jsx';
+import Audio from './Audio.jsx';
 import AudioManager from '../utils/AudioManager';
 import GameOverModal from '../components/GameOverModal.jsx';
+import AssetLoader from '../containers/AssetLoader.jsx';
 import * as gameActions from '../actions/gameActions';
 import * as environmentActions from '../actions/environmentActions';
 
 
 class Game extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
     this.state = {
-      environment: Object.assign({}, props.environment),
       settings: Object.assign({}, props.settings),
+      environment: Object.assign({}, props.environment),
       game: Object.assign({}, props.game)
     };
 
-    this.question = {
-      number: 0
-    };
-
-    this.selectInterval = this.selectInterval.bind(this);
     this.repeatQuestion = this.repeatQuestion.bind(this);
+    this.selectInterval = this.selectInterval.bind(this);
     this.replay = this.replay.bind(this);
   }
 
   componentDidMount() {
-    if (this.state.environment.isInGame) {
-      this.props.gameActions.requestQuestion();
-    }
+    this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave.bind(this));
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.question.number < nextProps.game.question.number) {
-      this.question = Object.assign({}, nextProps.game.question);
+    if (this.state.environment.isInGame !== nextProps.environment.isInGame) {
+      this.setState({
+        environment: Object.assign({}, nextProps.environment)
+      });
+    }
 
-      this.playQuestion();
+    if (this.state.environment.hasPlayerLost !== nextProps.environment.hasPlayerLost) {
+      this.setState({
+        environment: Object.assign({}, nextProps.environment)
+      });
+    }
+
+    if (!this.state.environment.isInGame && nextProps.environment.isInGame) {
+      this.props.gameActions.requestQuestion();
+    }
+
+    if (this.state.game.question.number !== nextProps.game.question.number) {
+      this.setState({
+        game: Object.assign({}, nextProps.game)
+      });
     }
 
     if (this.state.game.incorrectAnswers.length !== nextProps.game.incorrectAnswers.length) {
       this.setState({
-        game: nextProps.game
+        game: Object.assign({}, nextProps.game)
       });
     }
 
-    if (nextProps.game.hasPlayerLost) {
+    if (this.state.settings.tempo !== nextProps.settings.tempo) {
       this.setState({
-        game: nextProps.game
+        settings: Object.assign({}, nextProps.settings)
       });
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const prevQuestionNumber = prevState.game.question.number;
+    const currentQuestionNumber = this.state.game.question.number;
+
+    if (prevQuestionNumber !== currentQuestionNumber && currentQuestionNumber !== 0) {
+      this.playQuestion();
+    }
+  }
+
+  // eslint-disable-next-line
+  routerWillLeave() {
+    if (!this.state.game.hasPlayerLost) {
+      return 'Finish the Game?';
+    }
+  }
+
   playQuestion() {
-    const tempo = 80;
+    const tempo = this.state.settings.tempo;
     const timeoutValue = (60 * 1000) / tempo;
-    const question = this.question;
-    let hasFirstNotePlayed = false;
-    let hasSecondNotePlayed = false;
+    const question = this.state.game.question;
 
-    AudioManager.pauseAll();
+    if (this.timerId) {
+      clearTimeout(this.timerId);
+      AudioManager.pauseAll();
+    }
 
-    // set a little delay of 30 ms to complete pausing of all audio files
-    let questionPlayerTimerId = setTimeout(function play() {
-      if (!hasFirstNotePlayed) {
-        AudioManager.play(question.firstNote);
+    AudioManager.play(question.firstNote);
 
-        hasFirstNotePlayed = true;
-        questionPlayerTimerId = setTimeout(play, timeoutValue);
-      } else if (!hasSecondNotePlayed) {
-        AudioManager.pause(question.firstNote);
-        AudioManager.play(question.secondNote);
+    this.timerId = setTimeout(() => {
+      AudioManager.pause(question.firstNote);
+      AudioManager.play(question.secondNote);
 
-        hasSecondNotePlayed = true;
-        questionPlayerTimerId = setTimeout(play, timeoutValue * 3);
-      } else {
+      // give for the second note little more time, so timeout * 2
+      this.timerId = setTimeout(() => {
         AudioManager.pause(question.secondNote);
-        clearTimeout(questionPlayerTimerId);
-      }
-    }, 30);
+      }, timeoutValue * 2);
+    }, timeoutValue);
   }
 
   selectInterval(event) {
@@ -104,15 +126,21 @@ class Game extends React.Component {
   }
 
   render() {
+    if (!this.state.environment.isInGame && !this.state.environment.hasPlayerLost) {
+      return (<AssetLoader />);
+    }
+
     return (
-      <div className="game">
+      <div className="content">
+        <div className="content__head" />
 
-        <div className="game__top" />
+        <div className="content__body container">
 
-        <div className="container">
           <div className="row">
             <div className="col-sm-12">
-              <p className="game__task">Select the interval between the notes you've just listened.</p>
+              <p className="game-task">
+                Select the interval between the notes you've just listened.
+              </p>
             </div>
           </div>
 
@@ -120,23 +148,24 @@ class Game extends React.Component {
             <div className="col-sm-12 col-md-7 col-lg-8">
               <GameForm
                 settings={this.state.settings}
-                onMusicalIntervalClick={this.selectInterval}
+                onClickMusicalInterval={this.selectInterval}
                 incorrectAnswers={this.state.game.incorrectAnswers}
               />
             </div>
             <div className="col-sm-12 col-md-5 col-lg-4">
-              <AudioWidget onRepeatButtonClick={this.repeatQuestion} />
+              <Audio onClickRepeat={this.repeatQuestion} />
 
               <CurrentPlayers />
             </div>
 
             <GameOverModal
-              isVisible={this.state.game.hasPlayerLost}
+              isVisible={this.state.environment.hasPlayerLost}
               score={this.state.game.score}
-              onReplayButtonClick={this.replay}
+              onClickReplay={this.replay}
             />
           </div>
         </div>
+
       </div>
     );
   }
@@ -144,6 +173,8 @@ class Game extends React.Component {
 }
 
 Game.propTypes = {
+  route: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired,
   environment: PropTypes.object.isRequired,
   settings: PropTypes.object.isRequired,
   game: PropTypes.object.isRequired,
@@ -166,4 +197,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Game));

@@ -13,12 +13,15 @@
   },
   "rules": {
     "quotes": 0,
+    "quote-props": ["error", "consistent"],
     "no-console": 1,
     "no-debugger": 1,
     "no-underscore-dangle": 0,
     "no-var": 1,
+    "no-plusplus": 0,
     "eol-last": 0,
     "semi": [1, "always"],
-    "comma-dangle": [0, "never"]
+    "comma-dangle": [0, "never"],
+    "react/forbid-prop-types": 0
   }
 }

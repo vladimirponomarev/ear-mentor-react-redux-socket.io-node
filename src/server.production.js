@@ -1,9 +1,11 @@
-import express from 'express';
 import compression from 'compression';
-import app, { startServer } from './server';
-import config from '../config';
+import startApp from './server.js';
 
-app.use(compression());
-app.use(express.static(config.paths.staticDirectoryDest));
+const appOptions = [
+  {
+    middleware: compression
+  }
+];
 
-startServer();
+startApp(appOptions);
+

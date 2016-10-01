@@ -15,9 +15,6 @@ export default function (dependencies) {
   const io = dependencies.io;
   const store = dependencies.store;
 
-
-  io.on('connect', () => store.dispatch(environmentActions.completeConnectionToServer()));
-
   io.on('confirm_game_start', (gameData) => {
     store.dispatch(gameActions.setPlayerId(gameData.playerId));
     store.dispatch(environmentActions.loadAssets(gameData.sounds));
@@ -38,5 +35,5 @@ export default function (dependencies) {
   });
   io.on('rating', rating => store.dispatch(ratingActions.setRating(rating)));
 
-  io.on('game_over', () => store.dispatch(gameActions.overGame()));
+  io.on('game_over', () => store.dispatch(gameActions.loseGame()));
 }

@@ -9,6 +9,7 @@ const tasks = {
   'OLD_BUILD_CLEANING': 'The cleaning of an old build',
   'SERVER_BUNDLE': 'The server bundle',
   'CLIENT_BUNDLE': 'The client bundle',
+  'TEMPLATE_FILE_COPYING': 'The copying of template files',
   'STATIC_FILE_COPYING': 'The copying of static files'
 };
 
@@ -43,6 +44,18 @@ const taskPromise = Promise.resolve().then(() => {
       resolve();
     });
   });
+}).then(() => {
+  return new Promise((resolve, reject) => {
+    fs.copy(path.join(config.paths.templateDirectorySrc), config.paths.templateDirectoryDest, (err) => {
+      if (err) return reject(err);
+
+      const index = ++buildData.completedTaskCount;
+      const total = buildData.taskCount;
+      console.log(`[${index}/${total}] ${tasks.TEMPLATE_FILE_COPYING} is completed.`.green);
+
+      resolve();
+    });
+  })
 }).then(() => {
   return new Promise((resolve, reject) => {
     webpack(webpackConfigs.client).run((err) => {

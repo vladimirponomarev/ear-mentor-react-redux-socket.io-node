@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import RatingTable from '../components/RatingTable.jsx';
+import PlayerSorter from '../utils/PlayerSorter';
 
 
 class CurrentPlayers extends React.Component {
@@ -9,14 +10,14 @@ class CurrentPlayers extends React.Component {
     super(props);
 
     this.state = {
-      topPlayers: [],
+      topPlayers: PlayerSorter.getTopPlayers(props.rating.currentPlayers, props.game.playerId),
       playerId: props.game.playerId
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      topPlayers: this.getTopPlayers(nextProps.rating.currentPlayers)
+      topPlayers: PlayerSorter.getTopPlayers(nextProps.rating.currentPlayers, this.state.playerId)
     });
 
     if (this.state.playerId === null && nextProps.game.playerId) {
@@ -24,34 +25,6 @@ class CurrentPlayers extends React.Component {
         playerId: nextProps.game.playerId
       });
     }
-  }
-
-  getTopPlayers(players, limit = 10) {
-    const sortedPlayers = players.sort((playerA, playerB) => playerB.score - playerA.score);
-    const topPlayers = [];
-    let isPlayerInList = false;
-
-    for (let i = 0; i < sortedPlayers.length; i++) {
-      if (!isPlayerInList && sortedPlayers[i].id === this.state.playerId) {
-        isPlayerInList = true;
-      }
-
-      if (isPlayerInList || i < limit) {
-        topPlayers.push({
-          rank: i + 1,
-          id: sortedPlayers[i].id,
-          name: sortedPlayers[i].name,
-          country: sortedPlayers[i].country,
-          score: sortedPlayers[i].score
-        });
-      }
-
-      if (isPlayerInList && i >= limit) {
-        break;
-      }
-    }
-
-    return topPlayers;
   }
 
   render() {

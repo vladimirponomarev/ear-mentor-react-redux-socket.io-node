@@ -14,9 +14,9 @@ export function startGame(settings) {
   };
 }
 
-export function completeConnectionToServer() {
+export function quitGame() {
   return {
-    type: actionTypes.COMPLETE_CONNECTION_TO_SERVER
+    type: actionTypes.QUIT_GAME
   };
 }
 

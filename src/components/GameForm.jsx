@@ -7,8 +7,8 @@ import * as musicalIntervalDirections from '../constants/musicalIntervalDirectio
 
 const GameForm = ({
   settings,
-  onMusicalIntervalClick,
-  incorrectAnswers
+  incorrectAnswers,
+  onClickMusicalInterval,
 }) => {
   const hasAscDirection = settings.directions.includes(musicalIntervalDirections.ASC);
   const hasDescDirection = settings.directions.includes(musicalIntervalDirections.DESC);
@@ -21,7 +21,7 @@ const GameForm = ({
     'col-lg-2': true
   };
   const commonButtonClassNames = {
-    'btn': true, // eslint-disable-line quote-props
+    'btn': true,
     'btn--bottom-offset': true,
     'btn--block': true,
     'btn--shadow': true,
@@ -29,10 +29,10 @@ const GameForm = ({
   };
 
   Object.keys(musicalIntervals).forEach((key) => {
-    const hasNotBeenChosen = !settings.intervals.includes(musicalIntervals[key]);
+    const hasBeenChosen = settings.intervals.includes(musicalIntervals[key]);
     const columnClassNames = Object.assign({}, commonColumnClassNames, {
-      'hidden-xs': hasNotBeenChosen,
-      'hidden-sm': hasNotBeenChosen
+      'hidden-xs': !hasBeenChosen,
+      'hidden-sm': !hasBeenChosen
     });
     const musicalInterval = {
       name: musicalIntervalNames[key].short,
@@ -50,7 +50,7 @@ const GameForm = ({
         buttonClassNames: Object.assign({}, commonButtonClassNames, {
           'btn--error': isIntervalInAscIncorrect
         }),
-        isDisabled: hasNotBeenChosen || isIntervalInAscIncorrect
+        isDisabled: !hasBeenChosen || isIntervalInAscIncorrect
       }));
     }
 
@@ -61,7 +61,7 @@ const GameForm = ({
         buttonClassNames: Object.assign({}, commonButtonClassNames, {
           'btn--error': isIntervalInDescIncorrect
         }),
-        isDisabled: hasNotBeenChosen || isIntervalInDescIncorrect
+        isDisabled: !hasBeenChosen || isIntervalInDescIncorrect
       }));
     }
   });
@@ -84,7 +84,10 @@ const GameForm = ({
 
         <div className="module__content">
 
-          <div style={ascIntervalSelectionStyle} className="row">
+          <div
+            style={ascIntervalSelectionStyle}
+            className="interval-set interval-set--asc-direction row"
+          >
             <div className="hidden-xs hidden-sm col-md-1 text-center">
               <span className="direction-mark-character">A</span>
               <span className="direction-mark-character">S</span>
@@ -95,7 +98,7 @@ const GameForm = ({
                 {ascMusicalIntervals.map((interval, index) => (
                   <MusicalIntervalSelector
                     key={index}
-                    onClick={onMusicalIntervalClick}
+                    onClick={onClickMusicalInterval}
                     musicalInterval={interval}
                   />)
                 )}
@@ -103,9 +106,12 @@ const GameForm = ({
             </div>
           </div>
 
-          <div style={separatorStyle} className="interval-direction-separator"></div>
+          <div style={separatorStyle} className="interval-direction-separator" />
 
-          <div style={descIntervalSelectionStyle} className="row">
+          <div
+            style={descIntervalSelectionStyle}
+            className="interval-set interval-set--desc-direction row"
+          >
             <div className="hidden-xs hidden-sm col-md-1 text-center">
               <span className="direction-mark-character">D</span>
               <span className="direction-mark-character">E</span>
@@ -117,7 +123,7 @@ const GameForm = ({
                 {descMusicalIntervals.map((interval, index) => (
                   <MusicalIntervalSelector
                     key={index}
-                    onClick={onMusicalIntervalClick}
+                    onClick={onClickMusicalInterval}
                     musicalInterval={interval}
                   />)
                 )}
@@ -133,8 +139,8 @@ const GameForm = ({
 
 GameForm.propTypes = {
   settings: PropTypes.object.isRequired,
-  onMusicalIntervalClick: PropTypes.func.isRequired,
-  incorrectAnswers: PropTypes.array.isRequired
+  incorrectAnswers: PropTypes.array.isRequired,
+  onClickMusicalInterval: PropTypes.func.isRequired
 };
 
 export default GameForm;

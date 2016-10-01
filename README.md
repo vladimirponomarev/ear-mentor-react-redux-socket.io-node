@@ -8,7 +8,13 @@ Ear Mentor
 An application for training the relative pitch.
 
 ## Tests
-```bash
-$ npm install
-$ npm test
-```
+At first, install the dependencies.
+
+To run only unit tests (testing React components, Redux reducers, utils):
+    $ npm run test:unit
+    
+To run only integration tests (testing socket events with a real database):
+    $ npm run test:integration 
+    
+To run the full test suite:
+    $ npm test

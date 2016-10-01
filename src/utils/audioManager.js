@@ -28,11 +28,17 @@ class AudioManager {
   static load(src) {
     const key = extractFilenameFromPath(src);
 
-    const audio = new Audio();
-    audio.src = src;
+    const audio = new Audio(src);
     audio.addEventListener('loadeddata', () => {
       loadedFileCount++;
       cache[key] = audio;
+    });
+    audio.src = src;
+  }
+
+  static setVolume(volume) {
+    Object.keys(cache).forEach((key) => {
+      cache[key].volume = volume;
     });
   }
 
@@ -46,7 +52,7 @@ class AudioManager {
   }
 
   static pauseAll() {
-    Object.keys(cache).forEach((key) => this.pause(key));
+    Object.keys(cache).forEach(key => this.pause(key));
   }
 
   static getLoadingProgress() {

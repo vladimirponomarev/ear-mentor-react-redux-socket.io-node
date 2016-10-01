@@ -1,71 +1,87 @@
-import { getCountryByCode } from './country';
+import Country from './Country';
 import * as musicalInstruments from '../constants/musicalInstruments';
 import * as musicalIntervals from '../constants/musicalIntervals';
 import * as musicalIntervalDirections from '../constants/musicalIntervalDirections';
 
-export function isCountryCodeValid(code) {
-  return getCountryByCode(code) !== undefined;
+class Validator {
+
+  static isCountryCodeValid(code) {
+    return typeof code === 'string' && Country.getByCode(code) !== undefined;
+  }
+
+  static isInstrumentValid(instrument) {
+    return typeof instrument === 'string' &&
+           Object.keys(musicalInstruments).some(key => musicalInstruments[key] === instrument);
+  }
+
+  static getValidDirectionCount(directions) {
+    let directionCount = 0;
+
+    if (Array.isArray(directions)) {
+      directionCount += directions.includes(musicalIntervalDirections.ASC) ? 1 : 0;
+      directionCount += directions.includes(musicalIntervalDirections.DESC) ? 1 : 0;
+    }
+
+    return directionCount;
+  }
+
+  static getValidIntervalCount(intervals) {
+    let intervalCount = 0;
+
+    if (Array.isArray(intervals)) {
+      Object.keys(musicalIntervals).forEach((interval) => {
+        intervalCount += intervals.includes(musicalIntervals[interval]) ? 1 : 0;
+      });
+    }
+
+    return intervalCount;
+  }
+
+  static isStringNotEmpty(value) {
+    return typeof value === 'string' && value.trim().length !== 0;
+  }
+
+  static isSettingsDataValid(settings) {
+    const errors = {};
+    const validDirectionCount = this.getValidDirectionCount(settings.directions);
+    const validIntervalCount = this.getValidIntervalCount(settings.intervals);
+    let isValid = true;
+
+
+    if (!this.isInstrumentValid(settings.instrument)) {
+      errors.instrument = 'Please choose an available instrument.';
+      isValid = false;
+    }
+
+    if (validDirectionCount === 0) {
+      errors.directions = 'Please choose at least one interval direction.';
+      isValid = false;
+    }
+
+    if (validIntervalCount < 3 && validDirectionCount === 1) {
+      errors.intervals = `Please choose at least three intervals or consider to add another direction.`;
+      isValid = false;
+    } else if (validIntervalCount === 0 && validDirectionCount <= 2) {
+      errors.intervals = 'Please choose at least three intervals.';
+      isValid = false;
+    }
+
+    if (!this.isStringNotEmpty(settings.name)) {
+      errors.name = 'Please provide your name.';
+      isValid = false;
+    }
+
+    if (!this.isCountryCodeValid(settings.country)) {
+      errors.country = 'Please provide your country.';
+      isValid = false;
+    }
+
+    return {
+      isValid,
+      errors
+    };
+  }
+
 }
 
-export function isSettingsDataValid(settings) {
-  const errors = {};
-
-  let isValid = true;
-  let directionCount = 0;
-  let intervalCount = 0;
-  let isInstrumentValid = false;
-
-  if (settings && typeof settings.instrument === 'string') {
-    isInstrumentValid = Object.keys(musicalInstruments)
-                              .some(key => musicalInstruments[key] === settings.instrument);
-  }
-
-
-  if (settings && Array.isArray(settings.directions)) {
-    directionCount += settings.directions.includes(musicalIntervalDirections.ASC) ? 1 : 0;
-    directionCount += settings.directions.includes(musicalIntervalDirections.DESC) ? 1 : 0;
-  }
-
-
-  if (settings && Array.isArray(settings.intervals)) {
-    Object.keys(musicalIntervals).forEach((interval) => {
-      if (settings.intervals.includes(musicalIntervals[interval])) {
-        intervalCount++;
-      }
-    });
-  }
-
-
-  if (!isInstrumentValid) {
-    errors.instrument = 'Please choose an available instrument.';
-    isValid = false;
-  }
-
-  if (directionCount === 0) {
-    errors.directions = 'Please choose at least one interval direction.';
-    isValid = false;
-  }
-
-  if (intervalCount === 1 && directionCount === 1) {
-    errors.intervals = `Please choose at least two intervals or consider to add another direction.`;
-    isValid = false;
-  } else if (intervalCount === 0) {
-    errors.intervals = 'Please choose at least two intervals.';
-    isValid = false;
-  }
-
-  if (!settings || typeof settings.name !== 'string' || settings.name.trim().length === 0) {
-    errors.name = 'Please provide your name.';
-    isValid = false;
-  }
-
-  if (!settings || typeof settings.country !== 'string' || !isCountryCodeValid(settings.country)) {
-    errors.country = 'Please provide your country.';
-    isValid = false;
-  }
-
-  return {
-    isValid,
-    errors
-  };
-}
+export default Validator;

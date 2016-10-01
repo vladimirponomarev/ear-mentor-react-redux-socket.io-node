@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import ReactModal from 'react-modal';
 
 
 const GameOverModal = ({
   isVisible,
-  onReplayButtonClick,
-  score
+  score,
+  onClickReplay
 }) => {
   const style = {
     overlay: {
@@ -28,13 +29,13 @@ const GameOverModal = ({
       <p className="modal__message">You have scored {score} points.</p>
 
       <div className="modal__action">
-        <button onClick={onReplayButtonClick} className="btn btn-primary btn-shadow btn-lg">
+        <button onClick={onClickReplay} className="btn btn-primary btn-shadow btn-lg">
           Replay
         </button>
       </div>
 
       <div className="modal__action">
-        <a href="/">Go to the Index Page</a>
+        <Link to="/">Go to the Index Page</Link>
       </div>
     </ReactModal>
   );
@@ -43,7 +44,7 @@ const GameOverModal = ({
 
 GameOverModal.propTypes = {
   isVisible: PropTypes.bool.isRequired,
-  onReplayButtonClick: PropTypes.func.isRequired,
+  onClickReplay: PropTypes.func.isRequired,
   score: PropTypes.number.isRequired
 };
 

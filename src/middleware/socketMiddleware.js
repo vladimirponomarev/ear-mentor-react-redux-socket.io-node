@@ -18,7 +18,7 @@ function getSocketEmitterName(actionType) {
 
 
 export default function socketMiddleware(store) {
-  return next => action => {
+  return next => (action) => {
     if (action.type === actionTypes.CONNECT_TO_SERVER) {
       socketConnection = socketIoClient();
 
@@ -29,7 +29,11 @@ export default function socketMiddleware(store) {
     } else if (socketConnection && isSocketEmitter(action.type)) {
       const eventName = getSocketEmitterName(action.type);
 
-      socketConnection.emit(eventName, action.payload);
+      if (action.payload) {
+        socketConnection.emit(eventName, action.payload);
+      } else {
+        socketConnection.emit(eventName);
+      }
     }
 
 

@@ -3,11 +3,12 @@ import * as actionTypes from '../constants/actionTypes';
 
 const initialState = {
   playerId: null,
-  question: {},
+  question: {
+    number: 0
+  },
   givenAnswer: '',
   incorrectAnswers: [],
-  score: 0,
-  hasPlayerLost: false
+  score: 0
 };
 
 export default function gameReducer(state = initialState, action) {
@@ -15,15 +16,11 @@ export default function gameReducer(state = initialState, action) {
 
     case actionTypes.START_GAME:
       return Object.assign({}, state,
-        { hasPlayerLost: false, score: 0 });
+        { score: 0, question: { number: 0 } });
 
     case actionTypes.SET_PLAYER_ID:
       return Object.assign({}, state,
         { playerId: action.playerId });
-
-    case actionTypes.OVER_GAME:
-      return Object.assign({}, state,
-        { hasPlayerLost: true });
 
     case actionTypes.SEND_ANSWER:
       return Object.assign({}, state,

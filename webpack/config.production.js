@@ -25,7 +25,7 @@ export const server = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         loader: 'babel',
         include: [
           path.join(__dirname, '../src'),

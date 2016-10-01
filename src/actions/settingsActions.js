@@ -46,3 +46,17 @@ export function randomizeIntervals() {
     type: actionTypes.RANDOMIZE_INTERVALS
   };
 }
+
+export function setVolume(volume) {
+  return {
+    type: actionTypes.SET_VOLUME,
+    volume
+  };
+}
+
+export function setTempo(tempo) {
+  return {
+    type: actionTypes.SET_TEMPO,
+    tempo
+  };
+}

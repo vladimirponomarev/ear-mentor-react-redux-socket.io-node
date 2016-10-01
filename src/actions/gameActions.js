@@ -14,9 +14,9 @@ export function setPlayerId(playerId) {
   };
 }
 
-export function overGame() {
+export function loseGame() {
   return {
-    type: actionTypes.OVER_GAME
+    type: actionTypes.LOSE_GAME
   };
 }
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import RatingTabsBlock from '../components/RatingTabsBlock.jsx';
 import * as ratingActions from '../actions/ratingActions';
 import * as periods from '../constants/periods';
+import getTopPlayers from '../utils/PlayerSorter';
 
 
 class Rating extends React.Component {
@@ -13,7 +14,7 @@ class Rating extends React.Component {
 
     this.state = {
       currentPlayers: [],
-      ratingForPeriod: [],
+      ratingForPeriod: props.rating.rating,
       period: periods.NOW
     };
 
@@ -22,6 +23,7 @@ class Rating extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
+      currentPlayers: getTopPlayers(nextProps.rating.currentPlayers, null, 50),
       ratingForPeriod: nextProps.rating.rating
     });
   }

@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans\&subset=latin,latin-ext);
+
 $backgroundColor = #fff
 
 $colorBlack = #313131
@@ -9,9 +11,11 @@ $colorGreyDark = darken($colorGrey, 20%)
 $colorGreyLight = lighten($colorGrey, 45%)
 
 $colorPrimary = #00a6dc
-$colorPrimaryHover = darken($colorPrimary, 10%)
+$colorPrimaryHover = darken($colorPrimary, 18%)
 $colorPrimaryLight = lighten($colorPrimary, 40%)
 $colorPrimaryVeryLight = lighten($colorPrimary, 86%)
+$colorPrimaryDark = darken($colorPrimary, 20%)
+$colorPrimaryVeryDark = darken($colorPrimary, 40%)
 $colorSecondary = #00e676
 $colorSecondaryHover = darken($colorSecondary, 10%)
 $colorSecondaryVeryLight = lighten($colorSecondary, 86%)
@@ -19,8 +23,9 @@ $colorSecondaryVeryLight = lighten($colorSecondary, 86%)
 
 $progressBarSteps = 20
 
-
-@import url(https://fonts.googleapis.com/css?family=Open+Sans\&subset=latin,latin-ext);
+html, body
+  min-height: 100%
+  height: 100%
 
 body
   background: $backgroundColor
@@ -29,6 +34,16 @@ body
   font-size: 14px
   margin: 32px 0 0
   padding: 0
+
+a {
+  color: $colorPrimary
+  text-decoration: none
+
+  &:hover, &:active, &:active:focus, &:focus {
+    color: $colorPrimaryHover
+    text-decoration: none
+  }
+}
 
 .error-message
   color: $colorRed
@@ -122,6 +137,9 @@ for i in (1..$steps)
     border-color: $colorSecondaryHover
   }
 }
+
+.btn--top-offset
+  margin-top: 12px
 
 .btn--bottom-offset
   margin-bottom: 12px
@@ -254,14 +272,14 @@ for i in (1..$steps)
 /* ===================== */
 /* === Settings Form === */
 /* ===================== */
-.settings-form {
+.form--settings {
   background: $colorAqua
   border-radius: 8px
   padding: 18px 24px 6px
   box-shadow: 2px 2px 10px darken($colorAqua, 15%)
 }
 
-.settings-form__error
+.form--settings__error
   margin-top: 18px
 
 .btn-setting
@@ -280,6 +298,17 @@ for i in (1..$steps)
 
 .interval-control
   font-size: 14px
+
+.interval-control__button {
+  color: $colorPrimary
+  border: 0
+  background: none
+  padding: 0 4px
+
+  &:hover, &:active, &:active:focus, &:focus {
+    color: $colorPrimaryHover
+  }
+}
 
 /* ============= */
 /* === Modal === */
@@ -316,33 +345,13 @@ for i in (1..$steps)
   margin-top: 24px
 
 
-/* ================= */
+/* ============ */
 /* === Game === */
-/* ================= */
-.game__top
-  background: $colorPrimary url(../static/img/top.png) repeat-x -250px 0
-  width: 100%
-  height: 150px
-  margin-bottom: 24px
-  opacity: .65
-
-
-.game__task
+/* ============ */
+.game-task
   margin: 0 0 32px;
 
 
-.interval-selection {
-  & .btn {
-    margin-bottom: 12px;
-  }
-}
-
-.interval-selection__heading
-  color: $colorPrimary
-  text-transform: lowercase
-  font-size: 18px
-  text-align: center
-  margin: 0 0 18px 0
 
 .direction-mark-character
   display: block
@@ -358,9 +367,79 @@ for i in (1..$steps)
   height: 3px
   margin: 12px auto 24px
 
-/* ===================== */
-/* === Audio Manager === */
-/* ===================== */
+/* ==================== */
+/* === Audio Widget === */
+/* ==================== */
+.audio-widget__label
+  line-height: 36px
+  margin: 0
+  font-weight: 700
+
+.audio-widget__input
+  text-align: center
+  width: 100%
+  height: 36px
+
+
+.bpm-control
+  position: relative
+
+.bpm-control__label
+  display: block
+  line-height: 36px
+  margin-right: 8px
+
+.bpm-control__input
+  display: block
+  margin-left: 8px
+  width: 30px
+
+.volume-control
+  display: block
+  position: relative
+  padding: 0
+  width: 50px
+  height: 36px
+
+.volume-control__button
+  border: 1px solid $backgroundColor
+  border-top: 0
+  border-bottom: 0
+  background: $colorGreyLight
+  padding: 0
+  margin: 0
+  width: 10px
+  height: 26px
+  position: absolute
+  bottom: 5px
+  transition .4s height, .4s bottom
+
+.volume-control__button--20
+  right: 40px
+
+.volume-control__button--40
+  right: 30px
+
+.volume-control__button--60
+  right: 20px
+
+.volume-control__button--80
+  right: 10px
+
+.volume-control__button--100
+  right: 0
+
+.volume-control__button--active
+  background: $colorPrimary
+
+.volume-control__button--hovered
+  background: $colorPrimaryHover
+
+.volume-control__button:hover
+  height: 36px
+  bottom: 0
+
+
 .audio-manager__volume-control-panel
   font-size: 32px
 
@@ -461,13 +540,26 @@ for i in (1..$steps)
 .rating-table__row--highlighted
   background-color: $colorPrimaryVeryLight
 
+/* ================ */
+/* === Content === */
+/* ================ */
+.content
+  min-height: 700px
+
+.content__head
+  background: $colorPrimary url(../static/img/top.png) repeat-x -250px 0
+  width: 100%
+  height: 150px
+  margin-bottom: 24px
+  opacity: .65
+
 /* ============== */
 /* === Footer === */
 /* ============== */
 .footer
   border-top: 1px solid $colorGreyLight
-  margin-top: 64px
-  padding: 32px 0 24px
+  padding: 32px 0 0
+  margin-top: 32px
 
 .footer__copyright
   float: left

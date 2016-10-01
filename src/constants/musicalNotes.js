@@ -10,10 +10,14 @@ export const NOTES = [
 export const RANGE = {
   BASS: {
     min: NOTES.indexOf('E1'),
-    max: NOTES.indexOf('E3')
+    max: NOTES.indexOf('G3')
   },
   GUITAR: {
     min: NOTES.indexOf('E2'),
-    max: NOTES.indexOf('D4')
+    max: NOTES.indexOf('E5')
+  },
+  PIANO: {
+    min: NOTES.indexOf('A0'),
+    max: NOTES.indexOf('A4')
   }
 };

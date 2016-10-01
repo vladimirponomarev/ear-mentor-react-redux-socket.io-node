@@ -15,25 +15,27 @@ const initialState = {
   ],
   instrument: musicalInstruments.BASS,
   country: '',
-  name: ''
+  name: '',
+  volume: 0.8,
+  tempo: 80
 };
 
 function toggleArrayValue(itemList, item) {
   if (itemList.includes(item)) {
-    return itemList.filter((element) => element !== item);
+    return itemList.filter(element => element !== item);
   }
 
   return [...itemList, item];
 }
 
 function selectAllIntervals() {
-  return Object.keys(musicalIntervals).map((key) => musicalIntervals[key]);
+  return Object.keys(musicalIntervals).map(key => musicalIntervals[key]);
 }
 
 function randomizeIntervals() {
   const keys = Object.keys(musicalIntervals).filter(() => Math.random() > Math.random());
 
-  return keys.map((key) => musicalIntervals[key]);
+  return keys.map(key => musicalIntervals[key]);
 }
 
 
@@ -51,6 +53,14 @@ export default function settingsReducer(state = initialState, action) {
     case actionTypes.SET_INSTRUMENT:
       return Object.assign({}, state,
         { instrument: action.instrument });
+
+    case actionTypes.SET_VOLUME:
+      return Object.assign({}, state,
+        { volume: action.volume });
+
+    case actionTypes.SET_TEMPO:
+      return Object.assign({}, state,
+        { tempo: action.tempo });
 
     case actionTypes.TOGGLE_MUSICAL_INTERVAL:
       return Object.assign({}, state,

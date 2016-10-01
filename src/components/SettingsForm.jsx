@@ -1,17 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
 import Autocomplete from 'react-autocomplete';
-import { getCountryList } from '../utils/country';
+import Country from '../utils/Country';
 import * as musicalInstruments from '../constants/musicalInstruments';
 import * as musicalIntervals from '../constants/musicalIntervals';
 import * as musicalIntervalDirections from '../constants/musicalIntervalDirections';
 
 
 const SettingsForm = ({
-  errors,
   settings,
   pointsPerAnswer,
   countryFullName,
+  errors,
   onChangeMusicalInterval,
   onChangeMusicalIntervalDirection,
   onChangeName,
@@ -23,38 +23,38 @@ const SettingsForm = ({
   onAutocompleteCountry
 }) => {
   const btnInstrumentBassClass = classNames({
-    btn: true,
+    'btn': true,
     'btn-setting': true,
     'btn-setting--active': settings.instrument === musicalInstruments.BASS
   });
   const btnInstrumentGuitarClass = classNames({
-    btn: true,
+    'btn': true,
     'btn-setting': true,
     'btn-setting--active': settings.instrument === musicalInstruments.GUITAR
   });
   const btnInstrumentPianoClass = classNames({
-    btn: true,
+    'btn': true,
     'btn-setting': true,
     'btn-setting--active': settings.instrument === musicalInstruments.PIANO
   });
 
   const legendInstrumentClassName = classNames({
-    form__legend: true,
+    'form__legend': true,
     'form__legend--error': errors.instrument
   });
 
   const legendIntervalsClassName = classNames({
-    form__legend: true,
+    'form__legend': true,
     'form__legend--error': errors.intervals
   });
 
   const legendDirectionsClassName = classNames({
-    form__legend: true,
+    'form__legend': true,
     'form__legend--error': errors.directions
   });
 
   const legendPlayerClassName = classNames({
-    form__legend: true,
+    'form__legend': true,
     'form__legend--error': errors.playerName || errors.country
   });
 
@@ -89,7 +89,7 @@ const SettingsForm = ({
 
 
   return (
-    <form className="form settings-form" onSubmit={onStartGame}>
+    <form className="form form--settings" onSubmit={onStartGame}>
       <fieldset className="form__fieldset">
         <legend className={legendInstrumentClassName}>Instrument</legend>
 
@@ -131,16 +131,22 @@ const SettingsForm = ({
         <legend className={legendIntervalsClassName}>
           Intervals to Practice&nbsp;
           <span className="interval-control">
-            (<button onClick={onClickAllIntervals}>All</button>
+            (<button className="interval-control__button" onClick={onClickAllIntervals}>All</button>
             &nbsp;/&nbsp;
-            <button onClick={onClickRandomizeIntervals}>Randomize</button>)
+            <button
+              className="interval-control__button"
+              onClick={onClickRandomizeIntervals}
+            >
+              Randomize
+            </button>)
           </span>
         </legend>
 
-        <div className="row interval-selection">
+        <div className="row">
           <div className="col-sm-12 col-lg-6">
             <label className="checkbox-control" htmlFor="minor-second-checkbox">
               <input
+                className="form--settings__musical-interval-setter"
                 id="minor-second-checkbox"
                 value={musicalIntervals.MINOR_SECOND}
                 onChange={onChangeMusicalInterval}
@@ -154,6 +160,7 @@ const SettingsForm = ({
           <div className="col-sm-12 col-lg-6">
             <label className="checkbox-control" htmlFor="major-second-checkbox">
               <input
+                className="form--settings__musical-interval-setter"
                 id="major-second-checkbox"
                 value={musicalIntervals.MAJOR_SECOND}
                 onChange={onChangeMusicalInterval}
@@ -167,6 +174,7 @@ const SettingsForm = ({
           <div className="col-sm-12 col-lg-6">
             <label className="checkbox-control" htmlFor="minor-third-checkbox">
               <input
+                className="form--settings__musical-interval-setter"
                 id="minor-third-checkbox"
                 value={musicalIntervals.MINOR_THIRD}
                 onChange={onChangeMusicalInterval}
@@ -180,6 +188,7 @@ const SettingsForm = ({
           <div className="col-sm-12 col-lg-6">
             <label className="checkbox-control" htmlFor="major-third-checkbox">
               <input
+                className="form--settings__musical-interval-setter"
                 id="major-third-checkbox"
                 value={musicalIntervals.MAJOR_THIRD}
                 onChange={onChangeMusicalInterval}
@@ -193,6 +202,7 @@ const SettingsForm = ({
           <div className="col-sm-12 col-lg-6">
             <label className="checkbox-control" htmlFor="perfect-fourth-checkbox">
               <input
+                className="form--settings__musical-interval-setter"
                 id="perfect-fourth-checkbox"
                 value={musicalIntervals.PERFECT_FOURTH}
                 onChange={onChangeMusicalInterval}
@@ -206,6 +216,7 @@ const SettingsForm = ({
           <div className="col-sm-12 col-lg-6">
             <label className="checkbox-control" htmlFor="tritone-checkbox">
               <input
+                className="form--settings__musical-interval-setter"
                 id="tritone-checkbox"
                 value={musicalIntervals.TRITONE}
                 onChange={onChangeMusicalInterval}
@@ -219,6 +230,7 @@ const SettingsForm = ({
           <div className="col-sm-12 col-lg-6">
             <label className="checkbox-control" htmlFor="perfect-fifth-checkbox">
               <input
+                className="form--settings__musical-interval-setter"
                 id="perfect-fifth-checkbox"
                 value={musicalIntervals.PERFECT_FIFTH}
                 onChange={onChangeMusicalInterval}
@@ -232,6 +244,7 @@ const SettingsForm = ({
           <div className="col-sm-12 col-lg-6">
             <label className="checkbox-control" htmlFor="minor-sixth-checkbox">
               <input
+                className="form--settings__musical-interval-setter"
                 id="minor-sixth-checkbox"
                 value={musicalIntervals.MINOR_SIXTH}
                 onChange={onChangeMusicalInterval}
@@ -245,6 +258,7 @@ const SettingsForm = ({
           <div className="col-sm-12 col-lg-6">
             <label className="checkbox-control" htmlFor="major-sixth-checkbox">
               <input
+                className="form--settings__musical-interval-setter"
                 id="major-sixth-checkbox"
                 value={musicalIntervals.MAJOR_SIXTH}
                 onChange={onChangeMusicalInterval}
@@ -258,6 +272,7 @@ const SettingsForm = ({
           <div className="col-sm-12 col-lg-6">
             <label className="checkbox-control" htmlFor="minor-seventh-checkbox">
               <input
+                className="form--settings__musical-interval-setter"
                 id="minor-seventh-checkbox"
                 value={musicalIntervals.MINOR_SEVENTH}
                 onChange={onChangeMusicalInterval}
@@ -271,6 +286,7 @@ const SettingsForm = ({
           <div className="col-sm-12 col-lg-6">
             <label className="checkbox-control" htmlFor="major-seventh-checkbox">
               <input
+                className="form--settings__musical-interval-setter"
                 id="major-seventh-checkbox"
                 value={musicalIntervals.MAJOR_SEVENTH}
                 onChange={onChangeMusicalInterval}
@@ -284,6 +300,7 @@ const SettingsForm = ({
           <div className="col-sm-12 col-lg-6">
             <label className="checkbox-control" htmlFor="perfect-octave-checkbox">
               <input
+                className="form--settings__musical-interval-setter"
                 id="perfect-octave-checkbox"
                 value={musicalIntervals.PERFECT_OCTAVE}
                 onChange={onChangeMusicalInterval}
@@ -357,8 +374,8 @@ const SettingsForm = ({
               placeholder: 'Country',
               className: 'form-control'
             }}
-            items={getCountryList()}
-            getItemValue={(item) => item.name}
+            items={Country.getList()}
+            getItemValue={item => item.name}
             shouldItemRender={(item, val) => val.length >= 2 &&
               (item.name.toLowerCase().indexOf(val.toLowerCase()) !== -1 ||
                item.code.toLowerCase().indexOf(val.toLowerCase()) !== -1)
@@ -370,7 +387,7 @@ const SettingsForm = ({
                   'autocomplete__item'}
                 key={item.code}
               >
-              {item.name}
+                {item.name}
               </div>
             )}
             onChange={onChangeCountry}
@@ -392,9 +409,9 @@ const SettingsForm = ({
         </div>
       </fieldset>
 
-      <div className="settings-form__error">
-      {Object.keys(errors)
-             .map((prop, i) => (<p key={i} className="error-message">{errors[prop]}</p>))}
+      <div className="form--settings__error">
+        {Object.keys(errors)
+               .map((prop, i) => (<p key={i} className="error-message">{errors[prop]}</p>))}
       </div>
     </form>
   );
