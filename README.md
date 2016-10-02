@@ -5,7 +5,7 @@ Ear Mentor
 [![Dependency Status](https://david-dm.org/vladimirponomarev/ear-mentor-react-redux-socket.io-node.svg?theme=shields.io)](https://david-dm.org/vladimirponomarev/ear-mentor-react-redux-socket.io-node)
 [![devDependency Status](https://david-dm.org/vladimirponomarev/ear-mentor-react-redux-socket.io-node/dev-status.svg?theme=shields.io)](https://david-dm.org/vladimirponomarev/ear-mentor-react-redux-socket.io-node#info=devDependencies)
 
-Ear Mentor is an application for training relative pitch in a game form.
+Ear Mentor is an application for training relative pitch in a game form. The application built on React + Redux and uses Socket.IO for communication between the web client and server, for data storage uses SQLite.
 
 ![Ear Mentor](https://raw.github.com/vladimirponomarev/ear-mentor-react-redux-socket.io-node/master/screenshot.png)
 
