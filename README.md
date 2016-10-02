@@ -5,9 +5,30 @@ Ear Mentor
 [![Dependency Status](https://david-dm.org/vladimirponomarev/ear-mentor-react-redux-socket.io-node.svg?theme=shields.io)](https://david-dm.org/vladimirponomarev/ear-mentor-react-redux-socket.io-node)
 [![devDependency Status](https://david-dm.org/vladimirponomarev/ear-mentor-react-redux-socket.io-node/dev-status.svg?theme=shields.io)](https://david-dm.org/vladimirponomarev/ear-mentor-react-redux-socket.io-node#info=devDependencies)
 
-An application for training the relative pitch.
+Ear Mentor is an application for training relative pitch in a game form.
 
 ![Ear Mentor](https://raw.github.com/vladimirponomarev/ear-mentor-react-redux-socket.io-node/master/screenshot.png)
+
+## Installation
+Install the dependencies:
+
+```
+$ npm install
+```
+    
+To run in the development mode (React Hot Loader included):
+
+```
+$ npm run start:dev
+```
+
+To build for production and then serve:
+    
+
+```
+$ npm run build
+$ npm run serve
+```
 
 ## Tests
 At first, install the dependencies.
@@ -29,3 +50,7 @@ To run the full test suite:
 ```
 $ npm test
 ```
+
+## Licence
+MIT
+

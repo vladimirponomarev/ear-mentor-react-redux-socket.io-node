@@ -20,7 +20,9 @@ const Index = () => (
           <div className="col-sm-12 col-lg-7">
             <h3>Why Train Ear?</h3>
             <p>
-              On Ear Mentor you can practice relative pitch by trying to determine the distance between notes. With a well-developed ear you can learn to play your favorite songs just by ear, without any tabs or sheet music.
+              On Ear Mentor you can practice relative pitch by trying to determine the distance
+              between notes. With a well-developed ear you can learn to play your favorite songs
+              just by ear, without any tabs or sheet music.
             </p>
           </div>
           <div className="col-sm-12 col-lg-5 text-center">
