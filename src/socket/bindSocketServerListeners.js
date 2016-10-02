@@ -1,5 +1,5 @@
-import Validator from '../utils/Validator';
 import Encryptor from '../utils/Encryptor';
+import Validator from '../utils/Validator';
 import ScorePointCalculator from '../utils/ScorePointCalculator';
 import MusicalIntervalGenerator from '../utils/MusicalIntervalGenerator';
 import config from '../../config';
