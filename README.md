@@ -7,14 +7,25 @@ Ear Mentor
 
 An application for training the relative pitch.
 
+![Ear Mentor](https://raw.github.com/vladimirponomarev/ear-mentor-react-redux-socket.io-node/master/screenshot.png)
+
 ## Tests
 At first, install the dependencies.
 
 To run only unit tests (testing React components, Redux reducers, utils):
-    $ npm run test:unit
+
+```
+$ npm run test:unit
+```
     
 To run only integration tests (testing socket events with a real database):
-    $ npm run test:integration 
+
+```
+$ npm run test:integration 
+```
     
 To run the full test suite:
-    $ npm test
+
+```
+$ npm test
+```
