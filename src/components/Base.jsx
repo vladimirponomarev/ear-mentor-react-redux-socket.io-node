@@ -15,7 +15,6 @@ const Base = ({
         <nav className="main-nav">
           <ul>
             <li><Link to="/rating">Rating</Link></li>
-            <li><Link to="/music-theory">Music Theory</Link></li>
             <li><Link to="/about">About</Link></li>
           </ul>
         </nav>

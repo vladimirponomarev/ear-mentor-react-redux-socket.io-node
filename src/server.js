@@ -3,6 +3,7 @@ import Express from 'express';
 import socketIoServer from 'socket.io';
 import sqlite3 from 'sqlite3';
 import React from 'react';
+import favicon from 'serve-favicon';
 import ReactDom from 'react-dom/server';
 import path from 'path';
 import colors from 'colors'; // eslint-disable-line no-unused-vars
@@ -30,6 +31,7 @@ export default (appOptions) => {
   app.set('view engine', 'ejs');
   app.set('views', path.join(__dirname, './views'));
   app.use(Express.static(config.paths.staticDirectoryDest));
+  app.use(favicon(path.join(config.paths.staticDirectoryDest, './favicon.ico')));
 
 
   // assets
