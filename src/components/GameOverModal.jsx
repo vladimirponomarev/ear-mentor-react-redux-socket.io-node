@@ -23,7 +23,7 @@ const GameOverModal = ({
   };
 
   return (
-    <ReactModal style={style} isOpen={isVisible}>
+    <ReactModal style={style} isOpen={isVisible} contentLabel="The Game is Over">
       <h2 className="modal__title">The Game is Over</h2>
 
       <p className="modal__message">You have scored {score} points.</p>
