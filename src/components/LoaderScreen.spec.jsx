@@ -2,7 +2,7 @@
 import React from 'react';
 import expect from 'expect';
 import { shallow } from 'enzyme';
-import LoaderScreen from './LoaderScreen.jsx';
+import LoaderScreen from './LoaderScreen';
 
 
 const setup = ({ isVisible = false, progress = 0 }) => {

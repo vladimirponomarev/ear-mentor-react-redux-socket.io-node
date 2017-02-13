@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import MusicalIntervalSelector from './MusicalIntervalSelector.jsx';
+import MusicalIntervalSelector from './MusicalIntervalSelector';
 import * as musicalIntervals from '../constants/musicalIntervals';
 import * as musicalIntervalNames from '../constants/musicalIntervalNames';
 import * as musicalIntervalDirections from '../constants/musicalIntervalDirections';

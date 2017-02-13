@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import VolumeControl from './VolumeControl.jsx';
+import VolumeControl from './VolumeControl';
 import * as musicalTempoLimits from '../constants/musicalTempoLimits';
 
 

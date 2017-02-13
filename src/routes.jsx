@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import Base from './components/Base.jsx';
-import Index from './components/Index.jsx';
-import Game from './containers/Game.jsx';
-import Rating from './containers/Rating.jsx';
-import NotFoundPage from './components/NotFoundPage.jsx';
+import Base from './components/Base';
+import Index from './components/Index';
+import Game from './containers/Game';
+import Rating from './containers/Rating';
+import NotFoundPage from './components/NotFoundPage';
 import * as environmentActions from './actions/environmentActions';
 
 export default (store) => {

@@ -2,7 +2,7 @@
 import React from 'react';
 import expect from 'expect';
 import { shallow } from 'enzyme';
-import SettingsForm from './SettingsForm.jsx';
+import SettingsForm from './SettingsForm';
 import * as musicalIntervals from '../constants/musicalIntervals';
 
 

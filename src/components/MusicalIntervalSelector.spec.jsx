@@ -2,7 +2,7 @@
 import React from 'react';
 import expect from 'expect';
 import { shallow } from 'enzyme';
-import MusicalIntervalSelector from './MusicalIntervalSelector.jsx';
+import MusicalIntervalSelector from './MusicalIntervalSelector';
 import * as musicalIntervals from '../constants/musicalIntervals';
 import * as musicalIntervalNames from '../constants/musicalIntervalNames';
 

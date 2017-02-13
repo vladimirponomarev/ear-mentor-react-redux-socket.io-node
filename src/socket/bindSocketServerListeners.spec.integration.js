@@ -6,7 +6,7 @@ import expect from 'expect';
 import sqlite3 from 'sqlite3';
 import bindSocketServerListeners from './bindSocketServerListeners';
 import Encryptor from '../utils/Encryptor';
-import config from '../../config';
+import config from '../config';
 import * as musicalInstruments from '../constants/musicalInstruments';
 import * as musicalIntervals from '../constants/musicalIntervals';
 import * as musicalIntervalDirections from '../constants/musicalIntervalDirections';

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import RatingTable from '../components/RatingTable.jsx';
+import RatingTable from '../components/RatingTable';
 import PlayerSorter from '../utils/PlayerSorter';
 
 

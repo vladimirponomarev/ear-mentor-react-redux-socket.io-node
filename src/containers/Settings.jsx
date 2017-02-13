@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import SettingsForm from '../components/SettingsForm.jsx';
+import SettingsForm from '../components/SettingsForm';
 import Country from '../utils/Country';
 import ScorePointCalculator from '../utils/ScorePointCalculator';
 import Validator from '../utils/Validator';

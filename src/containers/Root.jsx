@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import getRoutes from '../routes.jsx';
+import getRoutes from '../routes';
 
 
 // eslint-disable-next-line react/prefer-stateless-function

@@ -2,7 +2,7 @@
 import React from 'react';
 import expect from 'expect';
 import { shallow } from 'enzyme';
-import RatingTableRow from './RatingTableRow.jsx';
+import RatingTableRow from './RatingTableRow';
 
 
 const setup = ({ player, isHighlighted = false }) => {

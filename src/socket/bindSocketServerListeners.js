@@ -2,7 +2,7 @@ import Encryptor from '../utils/Encryptor';
 import Validator from '../utils/Validator';
 import ScorePointCalculator from '../utils/ScorePointCalculator';
 import MusicalIntervalGenerator from '../utils/MusicalIntervalGenerator';
-import config from '../../config';
+import config from '../config';
 import * as musicalNotes from '../constants/musicalNotes';
 import * as periods from '../constants/periods';
 

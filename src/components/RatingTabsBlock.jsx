@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
-import RatingTable from './RatingTable.jsx';
+import RatingTable from './RatingTable';
 import * as periods from '../constants/periods';
 
 

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import RatingTabsBlock from '../components/RatingTabsBlock.jsx';
+import RatingTabsBlock from '../components/RatingTabsBlock';
 import * as ratingActions from '../actions/ratingActions';
 import * as periods from '../constants/periods';
 import getTopPlayers from '../utils/PlayerSorter';

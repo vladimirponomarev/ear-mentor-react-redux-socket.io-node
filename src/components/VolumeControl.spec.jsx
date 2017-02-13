@@ -2,7 +2,7 @@
 import React from 'react';
 import expect from 'expect';
 import { shallow } from 'enzyme';
-import VolumeControl from './VolumeControl.jsx';
+import VolumeControl from './VolumeControl';
 
 
 const setup = ({ volume = 1, hoveredVolume = 1 }) => {

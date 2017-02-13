@@ -2,7 +2,7 @@
 import React from 'react';
 import expect from 'expect';
 import { shallow } from 'enzyme';
-import GameOverModal from './GameOverModal.jsx';
+import GameOverModal from './GameOverModal';
 
 
 const setup = ({ isVisible = false, score = 0 }) => {

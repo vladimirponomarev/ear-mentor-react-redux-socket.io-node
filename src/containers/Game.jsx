@@ -2,12 +2,12 @@ import React, { PropTypes } from 'react';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import GameForm from '../components/GameForm.jsx';
-import CurrentPlayers from './CurrentPlayers.jsx';
-import Audio from './Audio.jsx';
+import GameForm from '../components/GameForm';
+import CurrentPlayers from './CurrentPlayers';
+import Audio from './Audio';
 import AudioManager from '../utils/AudioManager';
-import GameOverModal from '../components/GameOverModal.jsx';
-import AssetLoader from '../containers/AssetLoader.jsx';
+import GameOverModal from '../components/GameOverModal';
+import AssetLoader from '../containers/AssetLoader';
 import * as gameActions from '../actions/gameActions';
 import * as environmentActions from '../actions/environmentActions';
 

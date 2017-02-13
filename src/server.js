@@ -1,4 +1,4 @@
-/* eslint-disable no-console, react/jsx-filename-extension */
+/* eslint-disable no-console */
 import Express from 'express';
 import socketIoServer from 'socket.io';
 import sqlite3 from 'sqlite3';
@@ -11,11 +11,11 @@ import { match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
 import configureStore from './store/index';
 import schema from './schema';
-import config from '../config';
+import config from './config';
 import Encryptor from './utils/Encryptor';
 import bindSocketServerListeners from './socket/bindSocketServerListeners';
-import NotFoundPage from './components/NotFoundPage.jsx';
-import getRoutes from './routes.jsx';
+import NotFoundPage from './components/NotFoundPage';
+import getRoutes from './routes';
 
 
 export default (appOptions) => {
@@ -30,8 +30,8 @@ export default (appOptions) => {
   });
   app.set('view engine', 'ejs');
   app.set('views', path.join(__dirname, './views'));
-  app.use(Express.static(config.paths.staticDirectoryDest));
-  app.use(favicon(path.join(config.paths.staticDirectoryDest, './favicon.ico')));
+  app.use(Express.static(path.join(__dirname, './static')));
+  app.use(favicon(path.join(__dirname, './static/favicon.ico')));
 
 
   // assets
@@ -42,7 +42,7 @@ export default (appOptions) => {
       const chunks = text.split('.');
       const instrument = chunks[0].toLowerCase();
       const note = chunks[1].toLowerCase().replace('#', '-sharp');
-      const file = path.join(config.paths.staticDirectoryDest, `./audio/${instrument}/${note}.mp3`);
+      const file = path.join(__dirname, `./static/audio/${instrument}/${note}.mp3`);
 
       return res.sendFile(file);
     } catch (e) {

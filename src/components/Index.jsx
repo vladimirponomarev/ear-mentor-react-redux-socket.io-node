@@ -1,5 +1,5 @@
 import React from 'react';
-import Settings from '../containers/Settings.jsx';
+import Settings from '../containers/Settings';
 
 
 const Index = () => (

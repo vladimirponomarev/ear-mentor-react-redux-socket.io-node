@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import AudioManager from '../utils/AudioManager';
-import LoaderScreen from '../components/LoaderScreen.jsx';
+import LoaderScreen from '../components/LoaderScreen';
 import * as environmentActions from '../actions/environmentActions';
 
 class AssetLoader extends React.Component {

@@ -27,7 +27,7 @@ const Base = ({
       <div className="container clearfix">
         <div className="footer__copyright">
           <p>
-            &copy; 2016 Created by <a href="http://vladimirponomarev.com">Vladimir Ponomarev</a>&nbsp;
+            &copy; {new Date().getFullYear()} Created by <a href="http://vladimirponomarev.com">Vladimir Ponomarev</a>&nbsp;
             (<a href="https://twitter.com/vldmrponomarev">@vldmrponomarev</a>).&nbsp;
             The application licenced under MIT Licence.
           </p>

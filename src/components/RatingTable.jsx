@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import RatingTableRow from './RatingTableRow.jsx';
+import RatingTableRow from './RatingTableRow';
 
 
 const RatingTable = ({ players, playerId }) => (

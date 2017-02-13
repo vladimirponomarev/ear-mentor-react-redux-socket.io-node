@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import AudioWidget from '../components/AudioWidget.jsx';
+import AudioWidget from '../components/AudioWidget';
 import AudioManager from '../utils/AudioManager';
 import * as settingsActions from '../actions/settingsActions';
 import * as musicalTempoLimits from '../constants/musicalTempoLimits';
