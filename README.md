@@ -13,7 +13,7 @@ Ear Mentor is an application for training relative pitch in a game form. The app
 Rename the config file and configure it as you need:
 
 ```
-$ mv config/index.js.dist config/index.js
+$ mv src/config/index.js.dist src/config/index.js
 ```
 
 Install the dependencies:
@@ -33,7 +33,7 @@ To build for production and then serve:
 
 ```
 $ npm run build
-$ npm run serve
+$ npm run start
 ```
 
 ## Tests

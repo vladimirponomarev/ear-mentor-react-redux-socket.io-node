@@ -14,8 +14,8 @@ export default {
   },
   output: {
     path: path.join(__dirname, '../dist-dev'),
-    publicPath: '/',
-    filename: 'client.js'
+    publicPath: '/js',
+    filename: 'bundle.js'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

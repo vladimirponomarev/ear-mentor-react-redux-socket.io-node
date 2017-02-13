@@ -11,9 +11,9 @@
     "test": "NODE_ENV=test mocha --reporter progress bin/test.js test/setup.js src/**/*.spec*.js src/**/*.spec*.jsx",
     "test:unit": "NODE_ENV=test mocha --reporter progress bin/test.js src/**/*.spec.js src/**/*.spec.jsx",
     "test:integration": "NODE_ENV=test mocha --reporter progress bin/test.js test/setup.js src/**/*.spec.integration.js",
-    "serve": "NODE_ENV=production node ./dist/server.js",
+    "start": "NODE_ENV=production node ./dist/server.production.js",
     "start:dev": "NODE_ENV=development PORT=3000 babel-node ./bin/dev.js",
-    "build": "NODE_ENV=production babel-node ./bin/build.js",
+    "build": "rm -rf ./dist && babel src -d dist --copy-files && babel-node ./bin/bundle.js",
     "lint": "node_modules/.bin/esw --ext .jsx,.js config src tools",
     "lint:watch": "npm run lint -- --watch"
   },
