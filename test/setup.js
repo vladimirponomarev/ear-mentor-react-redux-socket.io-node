@@ -1,6 +1,6 @@
 import sqlite3 from 'sqlite3';
 import colors from 'colors';
-import config from '../config';
+import config from '../src/config';
 import schema from '../src/schema';
 
 
