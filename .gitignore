@@ -6,4 +6,4 @@ node_modules
 npm-debug.log
 db/*
 !db/.keep
-config/index.js
+src/config/index.js
